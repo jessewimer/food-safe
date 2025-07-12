@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-vrk2!g@wa*pq^b+9us6*8#!5+qi%d*snn3#70v2=5=onjqcnzd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [foodsafe.pythonanywhere.com]
 
 
 # Application definition
