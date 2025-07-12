@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            padding: 2rem;
+            margin: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .top-right-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .top-right-buttons a {
+            padding: 10px 18px;
+            font-size: 16px;
+            border-radius: 12px;
+            border: none;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            width: 140px;
+            transition: background-color 0.3s;
+        }
+
+        .top-right-buttons a:hover {
+            background-color: #0056b3;
+        }
+
+
+        .button-column {
+            max-width: 300px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 2rem;
+        }
+
+        .subcategory-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .subcategory-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-right-buttons">
+        <a href="{% url 'landing' %}">Home</a>
+        <a href="{% url 'shelf_stable' %}">Back to Categories</a>
+    </div>
+
+    <h2>Select a Dry Goods Subcategory</h2>
+
+    <div class="button-column">
+        {% for subcat in subcategories %}
+            <a href="#" class="subcategory-button">{{ subcat }}</a>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

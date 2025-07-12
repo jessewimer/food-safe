@@ -1,0 +1,7 @@
+product_detail page should show a note at the bottom that says product should discarded if:
+    then, for each category, have slightly different criteria
+
+when searching for a product, if it is both frig/freezer, when clicked on, prompt user regarding refrigeration
+    then only show the corresdonding data
+
+when navigating through the flowchart, somehow record from what page (frig or freezer) then only show the corresdonding data

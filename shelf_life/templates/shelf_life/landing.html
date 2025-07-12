@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Food Safe</title>
+  <style>
+    body {
+      background: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-weight: normal;
+    }
+    img {
+      width: 150px;
+      height: auto;
+      margin-bottom: 30px;
+    }
+
+    .get-started-button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px 0;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+    .get-started-button:hover {
+      background-color: #0056b3;
+    }
+  
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px 0;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    input[type="text"] {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 200px;
+      margin-right: 10px;
+    }
+    form {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Food Safe</h1>
+  <img src="{% static 'food_safe_logo.png' %}" alt="Food Safe Logo" />
+  
+  <div>
+    <a href="{% url 'category_select' %}" class="get-started-button">Get Started</a>
+</button>
+
+  </div>
+
+  <form action="{% url 'search' %}" method="get">
+    <input type="text" name="q" placeholder="Search food items..." />
+    <button type="submit">Search</button>
+  </form>
+</body>
+</html>
