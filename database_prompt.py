@@ -1,7 +1,7 @@
 import os
 import django
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "food_safe.settings")
 django.setup()
 
 from shelf_life.models import Product
@@ -74,6 +74,10 @@ def fill_products():
 
         product.save()
         print(f"✅ Saved: {product.item_name}")
+def generate_secret_key():
+    from django.core.management.utils import get_random_secret_key
+    print(get_random_secret_key())
 
 if __name__ == "__main__":
-    fill_products()
+    # fill_products()
+    generate_secret_key()
