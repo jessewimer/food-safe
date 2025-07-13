@@ -8,7 +8,9 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
+
 """
+# test note in settings
 
 import os
 # from dotenv import load_dotenv
