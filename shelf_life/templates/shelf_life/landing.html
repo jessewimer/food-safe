@@ -6,6 +6,51 @@
   <meta charset="UTF-8" />
   <title>Food Safe</title>
   <style>
+
+    .hamburger-menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .menu-icon {
+      font-size: 28px;
+      cursor: pointer;
+      display: block;
+    }
+
+    #menu-toggle {
+      display: none;
+    }
+
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 40px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 10;
+      min-width: 120px;
+    }
+
+    .menu-dropdown a {
+      display: block;
+      padding: 10px 16px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .menu-dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    #menu-toggle:checked + .menu-icon + .menu-dropdown {
+      display: block;
+    }
+
     body {
       background: white;
       font-family: Arial, sans-serif;
@@ -17,7 +62,7 @@
       font-weight: normal;
     }
     img {
-      width: 150px;
+      width: 300px;
       height: auto;
       margin-bottom: 30px;
     }
@@ -67,18 +112,106 @@
   </style>
 </head>
 <body>
-  <h1>Welcome to Food Safe</h1>
-  <img src="{% static 'food_safe_logo.png' %}" alt="Food Safe Logo" />
+
+  <div class="hamburger-menu">
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    <div class="menu-dropdown">
+      <a href="{% url 'About' %}">About</a>
+      <a href="{% url 'Donate' %}?q=example">Donate</a>
+      <!-- Add more links as needed -->
+    </div>
+  </div>
+
+  <!-- <h1>Welcome to Food Safe</h1> -->
+  <img src="{% static 'final_logo2.png' %}" alt="Food Safe Logo" />
   
   <div>
     <a href="{% url 'category_select' %}" class="get-started-button">Get Started</a>
 </button>
-
+<!-- add a line that says "OR" -->
+  <p>OR</p>
   </div>
 
-  <form action="{% url 'search' %}" method="get">
+  <form id="search-form" action="{% url 'search' %}" method="get">
     <input type="text" name="q" placeholder="Search food items..." />
     <button type="submit">Search</button>
   </form>
 </body>
 </html>
+
+<script>
+  document.addEventListener('click', function(event) {
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.querySelector('.menu-dropdown');
+    const menuIcon = document.querySelector('.menu-icon');
+
+    // Ignore clicks on the checkbox input itself (the hamburger toggle)
+    if (event.target === menuToggle) return;
+
+    // Close the menu if clicking outside menu or hamburger icon
+    if (!menu.contains(event.target) && !menuIcon.contains(event.target)) {
+      menuToggle.checked = false;
+    }
+  });
+
+  // Close menu when clicking a link inside it
+  document.querySelectorAll('.menu-dropdown a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('menu-toggle').checked = false;
+    });
+  });
+
+  // SEARCH FORM VALIDATION & POPUP
+  const form = document.getElementById('search-form');
+  const input = form.querySelector('input[name="q"]');
+
+  form.addEventListener('submit', function(e) {
+    if (!input.value.trim()) {
+      e.preventDefault();  // Stop form from submitting
+      showPopup("Nothing in search bar!");
+    }
+  });
+
+
+  function showPopup(message) {
+    // Create popup container
+    let popup = document.createElement('div');
+    popup.textContent = message;
+    popup.style.position = 'fixed';
+    popup.style.top = '20px';
+    popup.style.left = '50%';
+    popup.style.transform = 'translateX(-50%)';
+    popup.style.backgroundColor = '#ff4444';
+    popup.style.color = 'white';
+    popup.style.padding = '15px 25px';
+    popup.style.borderRadius = '8px';
+    popup.style.fontSize = '16px';
+    popup.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
+    popup.style.zIndex = 9999;
+    popup.style.cursor = 'pointer';
+    popup.style.userSelect = 'none';
+    popup.style.opacity = '0';
+    popup.style.transition = 'opacity 0.3s ease';
+
+    // Remove popup on click
+    popup.addEventListener('click', () => {
+      popup.style.opacity = '0';
+      setTimeout(() => popup.remove(), 300);
+    });
+
+    document.body.appendChild(popup);
+
+    // Fade in
+    requestAnimationFrame(() => {
+      popup.style.opacity = '1';
+    });
+
+    // Auto fade out after 3 seconds
+    setTimeout(() => {
+      popup.style.opacity = '0';
+      setTimeout(() => popup.remove(), 300);
+    }, 3000);
+  }
+
+</script>

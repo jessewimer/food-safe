@@ -58,3 +58,9 @@ def dry_goods(request):
         "Bread & Baked Goods"
     ]
     return render(request, 'shelf_life/dry_goods.html', {'subcategories': dry_goods_subcategories})
+
+def about(request):
+    return render(request, 'shelf_life/about.html')
+
+def donate(request):
+    return render(request, 'shelf_life/donate.html')
