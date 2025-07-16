@@ -79,5 +79,5 @@ def generate_secret_key():
     print(get_random_secret_key())
 
 if __name__ == "__main__":
-    # fill_products()
-    generate_secret_key()
+    fill_products()
+    # generate_secret_key()
