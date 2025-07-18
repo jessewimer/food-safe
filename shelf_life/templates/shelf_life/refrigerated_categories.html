@@ -80,7 +80,8 @@
     <h2>Refrigerated Categories</h2>
 
     {% for slug, name in categories %}
-        <a href="{% url 'shelf_stable_detail' slug %}" class="button">{{ name }}</a>
+        <!-- <a href="{% url 'shelf_stable_detail' slug %}" class="button">{{ name }}</a> -->
+         <a href="{% url 'coming_soon' %}" class="button">{{ name }}</a>
     {% endfor %}
 
 </body>

@@ -24,14 +24,7 @@ except ImportError:
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
-# print(f"DB_ENGINE: {os.getenv('DB_ENGINE')}")
-# print(f"DB_NAME: {os.getenv('DB_NAME')}")
-# print(f"DB_USER: {os.getenv('DB_USER')}")
-# print(f"DB_PASSWORD: {'******' if os.getenv('DB_PASSWORD') else None}")
-# print(f"DB_HOST: {os.getenv('DB_HOST')}")
-# print(f"DB_PORT: {os.getenv('DB_PORT')}")
-# commented out all this on pythonanywhere
-# print(f"DJANGO_ENV: {DJANGO_ENV}")
+
 if DJANGO_ENV == 'production':
     db_config = {
         'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
@@ -42,16 +35,11 @@ if DJANGO_ENV == 'production':
         'PORT': os.getenv('DB_PORT', '3306'),
     }
 
-    print("Complete MySQL config:", db_config)
-
     DATABASES = {
         'default': db_config
     }
 
-    print("DATABASES after setting:", DATABASES)
-
 else:
-    print("inside else setting the sqlite3")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -62,8 +50,7 @@ else:
 print("DATABASE ENGINE:", DATABASES['default']['ENGINE'])
 # Now you can use os.environ.get() to fetch them
 SECRET_KEY = os.environ.get('SECRET_KEY')
-# DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-# DEBUG = True
+
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
 
 

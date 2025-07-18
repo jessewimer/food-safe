@@ -71,6 +71,9 @@ def dry_goods(request):
     return render(request, 'shelf_life/dry_goods.html', {'subcategories': dry_goods_subcategories})
 
 
+def coming_soon(request):
+    return render(request, 'shelf_life/coming_soon.html')
+
 def about(request):
     return render(request, 'shelf_life/about.html')
 
