@@ -24,19 +24,34 @@ except ImportError:
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
-
+# print(f"DB_ENGINE: {os.getenv('DB_ENGINE')}")
+# print(f"DB_NAME: {os.getenv('DB_NAME')}")
+# print(f"DB_USER: {os.getenv('DB_USER')}")
+# print(f"DB_PASSWORD: {'******' if os.getenv('DB_PASSWORD') else None}")
+# print(f"DB_HOST: {os.getenv('DB_HOST')}")
+# print(f"DB_PORT: {os.getenv('DB_PORT')}")
+# commented out all this on pythonanywhere
+# print(f"DJANGO_ENV: {DJANGO_ENV}")
 if DJANGO_ENV == 'production':
-    DATABASES = {
-        'default': {
-            'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': os.getenv('DB_HOST'),
-            'PORT': os.getenv('DB_PORT', '3306'),
-        }
+    db_config = {
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '3306'),
     }
+
+    print("Complete MySQL config:", db_config)
+
+    DATABASES = {
+        'default': db_config
+    }
+
+    print("DATABASES after setting:", DATABASES)
+
 else:
+    print("inside else setting the sqlite3")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -44,7 +59,7 @@ else:
         }
     }
 
-
+print("DATABASE ENGINE:", DATABASES['default']['ENGINE'])
 # Now you can use os.environ.get() to fetch them
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
@@ -52,16 +67,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
 
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-vrk2!g@wa*pq^b+9us6*8#!5+qi%d*snn3#70v2=5=onjqcnzd"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 
 ALLOWED_HOSTS = ['foodsafe.pythonanywhere.com', 'localhost', '127.0.0.1']
 
@@ -117,12 +125,6 @@ WSGI_APPLICATION = "food_safe.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
 
 # Password validation

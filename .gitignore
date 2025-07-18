@@ -3,3 +3,6 @@ env/
 __pycache__/
 .env
 db.sqlite3
+import_json.py
+*.json
+my_made_up_file.py
