@@ -7,18 +7,26 @@
   <title>Food Safe</title>
   <style>
 
-    .hamburger-menu {
+    .top-right-menu {
       position: absolute;
       top: 20px;
       right: 20px;
+
+      display: flex;           /* Horizontal layout */
+      align-items: center;     /* Vertically center the hamburger and logout button */
+      gap: 12px;               /* Space between hamburger and logout */
+
+      z-index: 1000;
     }
 
     .menu-icon {
-      font-size: 28px;
+      font-size: 30px;
       cursor: pointer;
-      display: block;
+      display: flex;
+      align-items: center;
+      height: 40px;
+      line-height: normal;
     }
-
     #menu-toggle {
       display: none;
     }
@@ -50,7 +58,36 @@
     #menu-toggle:checked + .menu-icon + .menu-dropdown {
       display: block;
     }
+/* 
+    .logout-button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    } */
+  .logout-button {
+    margin-top: -3px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    height: 40px;
+    padding: 0 20px;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+  }
+    .logout-button:hover {
+      background-color: #0056b3;
+    }
 
+    
     body {
       background: white;
       font-family: Arial, sans-serif;
@@ -113,15 +150,25 @@
 </head>
 <body>
 
-  <div class="hamburger-menu">
+<div class="top-right-menu">
+
+  <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="logout-button">Logout</button>
+  </form>
+
+    <div class="hamburger-menu">
     <input type="checkbox" id="menu-toggle" />
     <label for="menu-toggle" class="menu-icon">&#9776;</label>
     <div class="menu-dropdown">
-      <a href="{% url 'About' %}">About</a>
-      <a href="{% url 'Donate' %}?q=example">Donate</a>
-      <!-- Add more links as needed -->
+      <a href="{% url 'about' %}">About</a>
+      <a href="{% url 'donate' %}?q=example">Donate</a>
+      <!-- More links if needed -->
     </div>
   </div>
+</div>
+
+
 
   <!-- <h1>Welcome to Food Safe</h1> -->
   <img src="{% static 'new_new.png' %}" alt="Food Safe Logo" />

@@ -4,12 +4,12 @@
     <style>
         body {
             font-family: sans-serif;
-            padding: 2rem;
+            background-color: white;
             margin: 0;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: white;
             min-height: 100vh;
             position: relative;
         }
@@ -49,24 +49,40 @@
             text-align: center;
         }
 
-        .button {
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            width: 300px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .result-button {
             display: block;
-            width: 20%;
-            min-width: 150px;
-            margin: 10px 0;
-            padding: 15px 0;
-            font-size: 18px;
+            width: 300px;
+            padding: 8px 16px;
+            font-size: 16px;
             border-radius: 12px;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
             text-align: center;
-            transition: background-color 0.3s;
             cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: background-color 0.3s;
         }
 
-        .button:hover {
-            background-color: #388e3c;
+        .result-button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            font-size: 18px;
+            text-align: center;
         }
     </style>
 </head>
@@ -74,17 +90,26 @@
 
     <div class="top-right-buttons">
         <a href="{% url 'landing' %}">Home</a>
-        <a href="{% url 'category_select' %}">← Back</a>
+        <a href="{% url 'dry_goods_subcategories' %}">← Back</a>
+
     </div>
 
-    <h2>Shelf Stable Subcategories</h2>
+    <h2>{{ category_name }}</h2>
 
-    <a href="{% url 'shelf_stable_detail' 'canned-jarred' %}" class="button">Canned / Jarred</a>
-    <a href="{% url 'shelf_stable_detail' 'aseptic' %}" class="button">Aseptic (Pouch)</a>
-    <a href="{% url 'shelf_stable_detail' 'condiments-sauces-syrups' %}" class="button">Condiments / Sauces / Syrups</a>
-    <a href="{% url 'dry_goods_subcategories' %}" class="button">Dry Goods</a>
-    <a href="{% url 'ssb_categories' %}" class="button">Beverages</a>  <!-- This one stays as is if not changed -->
-
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>
+                    <a href="{% url 'product_detail' item.id %}?from=drygoods" class="result-button">
+                        {{ item.item_name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items found for this category.</p>
+    {% endif %}
 
 </body>
 </html>
+

@@ -42,27 +42,32 @@
             background-color: #0056b3;
         }
 
-
+        /* Container for buttons, centered */
         .button-column {
-            max-width: 300px;
-            margin: 0 auto;
+            max-width: 320px;
+            margin: 2rem auto 0 auto;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 2rem;
         }
 
+        /* Button style, consistent with other pages */
         .subcategory-button {
             background-color: #4CAF50;
             color: white;
             border: none;
             padding: 12px 20px;
-            font-size: 16px;
+            font-size: 18px;
             border-radius: 12px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
             transition: background-color 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            width: 100%;
         }
 
         .subcategory-button:hover {
@@ -74,16 +79,22 @@
 
     <div class="top-right-buttons">
         <a href="{% url 'landing' %}">Home</a>
-        <a href="{% url 'shelf_stable' %}">Back to Categories</a>
+        <a href="{% url 'shelf_stable' %}">← Back</a>
     </div>
 
-    <h2>Select a Dry Goods Subcategory</h2>
+    <h2>Dry Goods Subcategories</h2>
 
-    <div class="button-column">
-        {% for subcat in subcategories %}
-            <a href="#" class="subcategory-button">{{ subcat }}</a>
-        {% endfor %}
-    </div>
+    {% if items %}
+        <div class="button-column">
+            {% for item in items %}
+                <a href="{% url 'product_detail' item.id %}?from=dry_goods" class="subcategory-button">
+                    {{ item.item_name }}
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align:center;">No dry goods found.</p>
+    {% endif %}
 
 </body>
 </html>

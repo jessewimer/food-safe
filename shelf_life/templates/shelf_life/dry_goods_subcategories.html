@@ -44,29 +44,32 @@
 
         h2 {
             margin-top: 0;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             width: 100%;
             text-align: center;
         }
 
-        .button {
+        .result-button {
             display: block;
-            width: 20%;
-            min-width: 150px;
-            margin: 10px 0;
-            padding: 15px 0;
+            padding: 12px 20px;
             font-size: 18px;
             border-radius: 12px;
             background-color: #4CAF50;
             color: white;
-            text-decoration: none;
             text-align: center;
-            transition: background-color 0.3s;
-            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 8px 0;
         }
 
-        .button:hover {
-            background-color: #388e3c;
+        .result-button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;  /* removes bullets */
+            padding-left: 0;        /* removes left padding */
+            margin: 0;              /* optional: remove default margin */
         }
     </style>
 </head>
@@ -74,16 +77,20 @@
 
     <div class="top-right-buttons">
         <a href="{% url 'landing' %}">Home</a>
-        <a href="{% url 'category_select' %}">← Back</a>
+        <a href="{% url 'shelf_stable' %}">← Back</a>
     </div>
 
-    <h2>Shelf Stable Subcategories</h2>
+    <h2>Dry Goods Subcategories</h2>
 
-    <a href="{% url 'shelf_stable_detail' 'canned-jarred' %}" class="button">Canned / Jarred</a>
-    <a href="{% url 'shelf_stable_detail' 'aseptic' %}" class="button">Aseptic (Pouch)</a>
-    <a href="{% url 'shelf_stable_detail' 'condiments-sauces-syrups' %}" class="button">Condiments / Sauces / Syrups</a>
-    <a href="{% url 'dry_goods_subcategories' %}" class="button">Dry Goods</a>
-    <a href="{% url 'ssb_categories' %}" class="button">Beverages</a>  <!-- This one stays as is if not changed -->
+        <ul>
+            {% for category in subcategories %}
+                <li>
+                    <a href="{% url 'dry_goods_category_detail' category.slug %}" class="result-button">
+                        {{ category.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
 
 
 </body>

@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 
 """
-
+from pathlib import Path
 import os
 
 try:
@@ -19,14 +19,39 @@ try:
 except ImportError:
     # dotenv not available, probably in production
     pass
-# Now you can use os.environ.get() to fetch them
-SECRET_KEY = os.environ.get('SECRET_KEY')
-# DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-DEBUG = True
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
+
+if DJANGO_ENV == 'production':
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT', '3306'),
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / os.getenv('DB_NAME', 'db.sqlite3'),
+        }
+    }
+
+
+# Now you can use os.environ.get() to fetch them
+SECRET_KEY = os.environ.get('SECRET_KEY')
+# DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+# DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +64,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # DEBUG = True
 
 ALLOWED_HOSTS = ['foodsafe.pythonanywhere.com', 'localhost', '127.0.0.1']
+
+
+LOGIN_URL = '/users/login/'  # or use `reverse_lazy('login')` in views if needed
+LOGIN_REDIRECT_URL = '/'  # or any view name
+LOGOUT_REDIRECT_URL = '/users/login/'
 
 
 # Application definition

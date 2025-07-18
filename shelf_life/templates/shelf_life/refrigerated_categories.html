@@ -51,8 +51,8 @@
 
         .button {
             display: block;
-            width: 20%;
-            min-width: 150px;
+            width: 15%;
+            min-width: 250px;
             margin: 10px 0;
             padding: 15px 0;
             font-size: 18px;
@@ -77,14 +77,11 @@
         <a href="{% url 'category_select' %}">← Back</a>
     </div>
 
-    <h2>Shelf Stable Subcategories</h2>
+    <h2>Refrigerated Categories</h2>
 
-    <a href="{% url 'shelf_stable_detail' 'canned-jarred' %}" class="button">Canned / Jarred</a>
-    <a href="{% url 'shelf_stable_detail' 'aseptic' %}" class="button">Aseptic (Pouch)</a>
-    <a href="{% url 'shelf_stable_detail' 'condiments-sauces-syrups' %}" class="button">Condiments / Sauces / Syrups</a>
-    <a href="{% url 'dry_goods_subcategories' %}" class="button">Dry Goods</a>
-    <a href="{% url 'ssb_categories' %}" class="button">Beverages</a>  <!-- This one stays as is if not changed -->
-
+    {% for slug, name in categories %}
+        <a href="{% url 'shelf_stable_detail' slug %}" class="button">{{ name }}</a>
+    {% endfor %}
 
 </body>
 </html>

@@ -74,17 +74,18 @@
 
     <div class="top-right-buttons">
         <a href="{% url 'landing' %}">Home</a>
-        <a href="{% url 'category_select' %}">← Back</a>
+        <a href="{% url 'shelf_stable' %}">← Back</a>
     </div>
 
-    <h2>Shelf Stable Subcategories</h2>
+    <h2>Shelf-Stable Beverage Categories</h2>
 
-    <a href="{% url 'shelf_stable_detail' 'canned-jarred' %}" class="button">Canned / Jarred</a>
-    <a href="{% url 'shelf_stable_detail' 'aseptic' %}" class="button">Aseptic (Pouch)</a>
-    <a href="{% url 'shelf_stable_detail' 'condiments-sauces-syrups' %}" class="button">Condiments / Sauces / Syrups</a>
-    <a href="{% url 'dry_goods_subcategories' %}" class="button">Dry Goods</a>
-    <a href="{% url 'ssb_categories' %}" class="button">Beverages</a>  <!-- This one stays as is if not changed -->
-
+    {% for category in ssb_categories %}
+        {% with category_slug=category|slugify %}
+            <a href="{% url 'ssb_category_detail' category_slug %}" class="button">
+                {{ category|title }}
+            </a>
+        {% endwith %}
+    {% endfor %}
 
 </body>
 </html>
