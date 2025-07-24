@@ -74,9 +74,11 @@ def dry_goods(request):
 def coming_soon(request):
     return render(request, 'shelf_life/coming_soon.html')
 
+def guidelines(request):
+    return render(request, 'shelf_life/guidelines.html')
+
 def about(request):
     return render(request, 'shelf_life/about.html')
-
 
 def donate(request):
     return render(request, 'shelf_life/donate.html')
