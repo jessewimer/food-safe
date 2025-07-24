@@ -81,6 +81,12 @@ def about(request):
 def donate(request):
     return render(request, 'shelf_life/donate.html')
 
+def sources(request):
+    return render(request, 'shelf_life/sources.html')
+
+def resources(request):
+    return render(request, 'shelf_life/resources.html')
+
 
 @login_required
 def shelf_stable_detail(request, subcategory):

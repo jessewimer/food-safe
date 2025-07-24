@@ -13,15 +13,16 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    # dotenv not available, probably in production
-    pass
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+try:
+    from dotenv import load_dotenv
+    # load_dotenv()
+    load_dotenv(BASE_DIR / '.env')
+except ImportError:
+    # dotenv not available (e.g., in production)
+    pass
 
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
 
@@ -47,24 +48,20 @@ else:
         }
     }
 
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 print("DATABASE ENGINE:", DATABASES['default']['ENGINE'])
-# Now you can use os.environ.get() to fetch them
-SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-
 ALLOWED_HOSTS = ['foodsafe.pythonanywhere.com', 'localhost', '127.0.0.1']
-
 
 LOGIN_URL = '/users/login/'  # or use `reverse_lazy('login')` in views if needed
 LOGIN_REDIRECT_URL = '/'  # or any view name
 LOGOUT_REDIRECT_URL = '/users/login/'
-
 
 # Application definition
 
@@ -108,11 +105,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "food_safe.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -132,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -143,7 +136,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
