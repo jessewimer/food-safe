@@ -35,7 +35,7 @@
 
     .nav-links {
       display: flex;
-      gap: 60px;
+      gap: 75px;
       align-items: center;
       justify-content: flex-end; /* or center, or space-between depending on layout */
     }
@@ -71,7 +71,6 @@
 
     .logout-button:hover {
       background-color: #4a8c34;
-      /* background-color: #0056b3; */
     }
 
     h1 {
@@ -86,37 +85,41 @@
     }
 
     .get-started-button {
-      background-color: #007BFF;
+      background-color: #5182a3;
       color: white;
       border: none;
       padding: 12px 28px;
-      font-size: 16px;
+      font-size: 18px;
+      font-weight: bold;
       border-radius: 12px;
       cursor: pointer;
       margin: 10px 0;
+      margin-top: 40px;
       text-decoration: none;
       display: inline-block;
       transition: background-color 0.3s ease;
     }
 
     .get-started-button:hover {
-      background-color: #0056b3;
+      background-color: #3f6f8c;
     }
 
     button {
-      background-color: #007BFF;
+      background-color: #5182a3;
       color: white;
       border: none;
-      padding: 12px 28px;
-      font-size: 16px;
+      padding: 7px 28px;
+      font-size: 18px;
+      font-weight: bold;
       border-radius: 12px;
       cursor: pointer;
       margin: 10px 0;
       transition: background-color 0.3s ease;
+      font-family: 'Tahoma', sans-serif;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #3f6f8c;
     }
 
     input[type="text"] {
@@ -152,12 +155,6 @@
       <a href="{% url 'about' %}" class="plain-link">About</a>
       <a href="{% url 'donate' %}?q=example" class="plain-link">Donate</a>
     </div>
-    <!-- <div class="nav-links">
-      <button type="button" class="nav-link" onclick="window.location.href='{% url 'resources' %}'">Resources</button>
-      <button type="button" class="nav-link" onclick="window.location.href='{% url 'sources' %}'">Acknowledgements</button>
-      <button type="button" class="nav-link" onclick="window.location.href='{% url 'about' %}'">About</button>
-      <button type="button" class="nav-link" onclick="window.location.href='{% url 'donate' %}?q=example'">Donate</button>
-    </div> -->
 
     <!-- Logout button on right -->
     <form method="POST" action="{% url 'logout' %}" style="margin-left: 20px;">
@@ -170,8 +167,8 @@
   <!-- <img src="{% static 'new_new22.png' %}" alt="Food Safe Logo" class="main-logo" /> -->
 
   <div>
-    <a href="{% url 'category_select' %}" class="get-started-button">Get Started</a>
-    <p>OR</p>
+    <a href="{% url 'category_select' %}" class="get-started-button">Use Flowchart</a>
+    <p style="font-size: 20px; font-weight: bold; padding-top: 25px; padding-bottom: 25px;">OR</p>
   </div>
 
   <form id="search-form" action="{% url 'search' %}" method="get">
