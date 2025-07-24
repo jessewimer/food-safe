@@ -8,7 +8,7 @@ def landing_redirect(request):
     return redirect('login')
 
 
-# @login_required
+@login_required
 def landing(request):
     return render(request, 'shelf_life/landing.html')
 
