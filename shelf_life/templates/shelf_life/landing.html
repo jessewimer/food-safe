@@ -216,7 +216,7 @@
     }
 
     /* Media Queries for Responsive Design */
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1024px) {
       .nav-links {
         display: none;
       }
@@ -367,7 +367,7 @@
 
     // Close mobile menu when window is resized to desktop size
     window.addEventListener('resize', function() {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > 1024) {
         document.querySelector('.hamburger').classList.remove('active');
         document.getElementById('mobileMenu').classList.remove('active');
       }
