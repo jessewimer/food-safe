@@ -1,7 +1,19 @@
 product_detail page should show a note at the bottom that says product should discarded if:
     then, for each category, have slightly different criteria
+    "when in doubt, throw it out"
 
 when searching for a product, if it is both frig/freezer, when clicked on, prompt user regarding refrigeration
     then only show the corresdonding data
 
 when navigating through the flowchart, somehow record from what page (frig or freezer) then only show the corresdonding data
+
+add functionality to track foodbank clients
+
+create user profile model to track num of products queried, last login, etc., add MyAccount button
+
+center buttons (home, back) at the top of each page rather than top right
+
+add comment input functionality
+
+add contact info at the bottom of page or on a separate contact page
+

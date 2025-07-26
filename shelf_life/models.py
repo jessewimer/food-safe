@@ -31,3 +31,16 @@ class Product(models.Model):
     
     def __str__(self):
         return self.item_name
+
+
+class Comment(models.Model):
+    author_name = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']  # Show newest first
+    
+    def __str__(self):
+        return f'Comment by {self.author_name} - {self.created_at}'

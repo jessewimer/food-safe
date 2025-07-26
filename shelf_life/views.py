@@ -3,6 +3,10 @@ from django.http import HttpResponse
 from shelf_life.models import Product
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.http import JsonResponse
+from .models import Comment
+from .forms import CommentForm
+
 
 def landing_redirect(request):
     return redirect('login')
@@ -11,6 +15,39 @@ def landing_redirect(request):
 @login_required
 def landing(request):
     return render(request, 'shelf_life/landing.html')
+
+def coming_soon(request):
+    return render(request, 'shelf_life/coming_soon.html')
+
+def guidelines(request):
+    return render(request, 'shelf_life/guidelines.html')
+
+def about(request):
+    return render(request, 'shelf_life/about.html')
+
+def donate(request):
+    return render(request, 'shelf_life/donate.html')
+
+def sources(request):
+    return render(request, 'shelf_life/sources.html')
+
+def resources(request):
+    return render(request, 'shelf_life/resources.html')
+
+def contact(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = CommentForm()
+
+    return render(request, 'shelf_life/contact.html', {
+        'form': form
+    })
 
 
 @login_required
@@ -71,23 +108,7 @@ def dry_goods(request):
     return render(request, 'shelf_life/dry_goods.html', {'subcategories': dry_goods_subcategories})
 
 
-def coming_soon(request):
-    return render(request, 'shelf_life/coming_soon.html')
 
-def guidelines(request):
-    return render(request, 'shelf_life/guidelines.html')
-
-def about(request):
-    return render(request, 'shelf_life/about.html')
-
-def donate(request):
-    return render(request, 'shelf_life/donate.html')
-
-def sources(request):
-    return render(request, 'shelf_life/sources.html')
-
-def resources(request):
-    return render(request, 'shelf_life/resources.html')
 
 
 @login_required
