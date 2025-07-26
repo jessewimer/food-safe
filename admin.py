@@ -118,4 +118,7 @@ def main_menu():
 
 
 if __name__ == "__main__":
-    main_menu()
+    try:
+        main_menu()
+    except SystemExit:
+        pass 
