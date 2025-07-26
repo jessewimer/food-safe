@@ -36,6 +36,7 @@ class Product(models.Model):
 class Comment(models.Model):
     author_name = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(max_length=100, blank=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     

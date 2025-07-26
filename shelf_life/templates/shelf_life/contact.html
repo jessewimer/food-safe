@@ -190,6 +190,11 @@
       </div>
       
       <div class="form-group">
+        <label for="{{ form.email.id_for_label }}">Email (optional):</label>
+        {{ form.email }}
+      </div>
+      
+      <div class="form-group">
         <label for="{{ form.city.id_for_label }}">City (optional):</label>
         {{ form.city }}
       </div>
@@ -212,8 +217,8 @@
     <div class="popup-content" onclick="event.stopPropagation()">
       <div class="success-icon">✅</div>
       <h2 class="popup-title">Message Sent Successfully!</h2>
-      <p class="popup-message">
-        Thank you for contacting us. We've received your message and will get back to you as soon as possible.
+      <p class="popup-message" id="popupMessage">
+        Thank you for contacting us. We've received your message and will get back to you if you provided an email address.
       </p>
       <button class="popup-close" onclick="hidePopup()">Great!</button>
     </div>
@@ -240,6 +245,7 @@
       e.preventDefault();
       
       const formData = new FormData(this);
+      const email = formData.get('email');
       
       fetch('', {
         method: 'POST',
@@ -251,6 +257,14 @@
       .then(response => response.json())
       .then(data => {
         if (data.success) {
+          // Update popup message based on whether email was provided
+          const popupMessage = document.getElementById('popupMessage');
+          if (email && email.trim() !== '') {
+            popupMessage.textContent = 'Thank you for contacting us. We\'ve received your message and will get back to you at the email address you provided.';
+          } else {
+            popupMessage.textContent = 'Thank you for contacting us. We\'ve received your message. Since no email was provided, we won\'t be able to respond directly.';
+          }
+          
           // Clear the form
           document.getElementById('contactForm').reset();
           // Show success popup
