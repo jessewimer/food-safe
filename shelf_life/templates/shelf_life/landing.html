@@ -458,6 +458,25 @@
     </div>
   </div>
 
+  <!-- Fundraising Popup -->
+  <div class="dev-popup-overlay" id="fundraisingPopupOverlay" onclick="hideFundraisingPopup()">
+    <div class="dev-popup-content" onclick="event.stopPropagation()">
+      <div class="development-icon">💝</div>
+      <h2 class="dev-popup-title">Support Foodcheq</h2>
+      <p class="dev-popup-message">
+        Your donations help us build digital tools to support the operational needs of food banks throughout the region.
+      </p>
+      <div class="dev-popup-warning">
+        <p><strong>Quarterly Fundraising Drive</strong></p>
+        <p>Every dollar helps us expand our services and reach more communities in need. Consider making a donation today!</p>
+      </div>
+      <p class="dev-popup-message">
+        <a href="{% url 'donate' %}" style="color: #5182a3; text-decoration: none; font-weight: bold;">Visit our donation page →</a>
+      </p>
+      <button class="dev-popup-close" onclick="hideFundraisingPopup()">Maybe Later</button>
+    </div>
+  </div>
+
   <!-- Main content -->
   <div>
     <a href="{% url 'category_select' %}" class="get-started-button">Use Flowchart</a>
@@ -547,6 +566,38 @@
       }, 3000);
     }
 
+    // FUNDRAISING POPUP FUNCTIONS
+    function showFundraisingPopup() {
+      document.getElementById('fundraisingPopupOverlay').style.display = 'flex';
+    }
+
+    function hideFundraisingPopup() {
+      document.getElementById('fundraisingPopupOverlay').style.display = 'none';
+      // Mark this quarter's popup as seen
+      const currentQuarter = getCurrentQuarter();
+      localStorage.setItem(`fundraising_popup_seen_${currentQuarter}`, 'true');
+    }
+
+    function getCurrentQuarter() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1; // getMonth() returns 0-11
+      const quarter = Math.ceil(month / 3);
+      return `${year}_Q${quarter}`;
+    }
+
+    function shouldShowFundraisingPopup() {
+      // Set this to true when you want to activate quarterly fundraising
+      const fundraisingActive = false; // Change to true to activate
+      
+      if (!fundraisingActive) return false;
+      
+      const currentQuarter = getCurrentQuarter();
+      const hasSeenThisQuarter = localStorage.getItem(`fundraising_popup_seen_${currentQuarter}`);
+      
+      return !hasSeenThisQuarter; // Show if they haven't seen it this quarter
+    }
+
     // DEVELOPMENT WARNING POPUP FUNCTIONS
     function showDevPopup() {
       document.getElementById('devPopupOverlay').style.display = 'flex';
@@ -556,16 +607,17 @@
       document.getElementById('devPopupOverlay').style.display = 'none';
     }
 
-    // Close dev popup when pressing Escape key
+    // Close popups when pressing Escape key
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         hideDevPopup();
+        hideFundraisingPopup();
       }
     });
 
-    // Show development warning popup on first login
+    // Show popups on page load
     document.addEventListener('DOMContentLoaded', function() {
-      // Check URL parameters for first login
+      // Check URL parameters for first login (dev warning)
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('first_login') === 'true') {
         showDevPopup();
@@ -573,6 +625,14 @@
         const url = new URL(window.location);
         url.searchParams.delete('first_login');
         window.history.replaceState({}, document.title, url);
+      }
+      
+      // Check if we should show fundraising popup
+      if (shouldShowFundraisingPopup()) {
+        // Small delay to avoid overwhelming users if dev popup also shows
+        setTimeout(() => {
+          showFundraisingPopup();
+        }, urlParams.get('first_login') === 'true' ? 2000 : 500);
       }
     });
   </script>

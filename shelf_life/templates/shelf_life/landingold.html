@@ -310,89 +310,6 @@
       font-size: 14px;
     }
 
-    /* Development Warning Popup Styles */
-    .dev-popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    }
-
-    .dev-popup-content {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-      animation: devPopupAppear 0.3s ease-out;
-    }
-
-    @keyframes devPopupAppear {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .dev-popup-title {
-      color: #ff6b35;
-      margin-bottom: 20px;
-      font-size: 24px;
-      font-weight: 600;
-    }
-
-    .dev-popup-message {
-      color: #333;
-      margin-bottom: 20px;
-      line-height: 1.6;
-      font-size: 16px;
-    }
-
-    .dev-popup-warning {
-      background-color: #fff3cd;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 20px 0;
-      border-left: 4px solid #ff6b35;
-    }
-
-    .dev-popup-warning strong {
-      color: #ff6b35;
-      font-size: 18px;
-    }
-
-    .dev-popup-close {
-      background-color: #5182a3;
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .dev-popup-close:hover {
-      background-color: #3f6f8c;
-    }
-
-    .development-icon {
-      font-size: 48px;
-      margin-bottom: 15px;
-    }
   </style>
 </head>
 <body>
@@ -437,25 +354,6 @@
       {% csrf_token %}
       <button type="submit" class="logout-button">Logout</button>
     </form>
-  </div>
-
-  <!-- Development Warning Popup -->
-  <div class="dev-popup-overlay" id="devPopupOverlay" onclick="hideDevPopup()">
-    <div class="dev-popup-content" onclick="event.stopPropagation()">
-      <div class="development-icon">⚠️</div>
-      <h2 class="dev-popup-title">Development Environment</h2>
-      <p class="dev-popup-message">
-        This application is currently under active development and testing.
-      </p>
-      <div class="dev-popup-warning">
-        <p><strong>Important Notice:</strong></p>
-        <p>All data and information displayed should be validated before use in production environments. Features may be incomplete or subject to change.</p>
-      </div>
-      <p class="dev-popup-message">
-        Please proceed with caution and report any issues you encounter.
-      </p>
-      <button class="dev-popup-close" onclick="hideDevPopup()">I Understand</button>
-    </div>
   </div>
 
   <!-- Main content -->
@@ -546,35 +444,6 @@
         setTimeout(() => popup.remove(), 300);
       }, 3000);
     }
-
-    // DEVELOPMENT WARNING POPUP FUNCTIONS
-    function showDevPopup() {
-      document.getElementById('devPopupOverlay').style.display = 'flex';
-    }
-
-    function hideDevPopup() {
-      document.getElementById('devPopupOverlay').style.display = 'none';
-    }
-
-    // Close dev popup when pressing Escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        hideDevPopup();
-      }
-    });
-
-    // Show development warning popup on first login
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check URL parameters for first login
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('first_login') === 'true') {
-        showDevPopup();
-        // Clean up URL without page reload
-        const url = new URL(window.location);
-        url.searchParams.delete('first_login');
-        window.history.replaceState({}, document.title, url);
-      }
-    });
   </script>
 </body>
 </html>
