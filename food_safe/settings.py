@@ -60,7 +60,8 @@ DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
 ALLOWED_HOSTS = ['foodsafe.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 LOGIN_URL = '/users/login/'  # or use `reverse_lazy('login')` in views if needed
-LOGIN_REDIRECT_URL = '/'  # or any view name
+# LOGIN_REDIRECT_URL = '/'  # or any view name
+LOGIN_REDIRECT_URL = '/?first_login=true'
 LOGOUT_REDIRECT_URL = '/users/login/'
 
 # Application definition
