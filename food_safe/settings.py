@@ -59,7 +59,7 @@ DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-ALLOWED_HOSTS = ['foodsafe.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['foodsafe.pythonanywhere.com', 'localhost', '127.0.0.1', 'foodcheq.org', 'www.foodcheq.org']
 
 LOGIN_URL = '/users/login/'  # or use `reverse_lazy('login')` in views if needed
 # LOGIN_REDIRECT_URL = '/'  # or any view name
