@@ -98,16 +98,14 @@ def shelf_stable(request):
 def dry_goods(request):
     dry_goods_subcategories = [
         "Baking",
-        "Cereals / Grains",
+        "Cereals & Grains",
         "Pasta & Noodles",
         "Snacks & Sweets",
-        "Proteins / Legumes",
+        "Proteins & Legumes",
         "Prepared Mixes",
         "Bread & Baked Goods"
     ]
     return render(request, 'shelf_life/dry_goods.html', {'subcategories': dry_goods_subcategories})
-
-
 
 
 
@@ -120,6 +118,12 @@ def shelf_stable_detail(request, subcategory):
         # add more as needed
     }
     
+    display_name_map = {
+        "canned-jarred": "Canned & Jarred",
+        "aseptic": "Aseptic (Pouches)",
+        "condiments-sauces-syrups": "Condiments, Sauces & Syrups",
+    }
+
     subcategory_lower = subcategory.lower()
     
     if subcategory_lower in subcategory_map:
@@ -129,6 +133,7 @@ def shelf_stable_detail(request, subcategory):
         
         return render(request, template_name, {
             "category": category_name,
+            "display_name": display_name_map[subcategory_lower],
             "items": items,
         })
     
@@ -140,10 +145,10 @@ def shelf_stable_detail(request, subcategory):
 def dry_goods_subcategories(request):
     subcategories = [
         {"slug": "baking", "name": "Baking"},
-        {"slug": "cereals-grains", "name": "Cereals / Grains"},
+        {"slug": "cereals-grains", "name": "Cereals & Grains"},
         {"slug": "pasta-noodles", "name": "Pasta & Noodles"},
         {"slug": "snacks-sweets", "name": "Snacks & Sweets"},
-        {"slug": "proteins-legumes", "name": "Proteins / Legumes"},
+        {"slug": "proteins-legumes", "name": "Proteins & Legumes"},
         {"slug": "prepared-mixes", "name": "Prepared Mixes"},
         {"slug": "bread-baked-goods", "name": "Bread & Baked Goods"},
     ]
@@ -154,13 +159,13 @@ def dry_goods_subcategories(request):
 def dry_goods_category_detail(request, category_slug):
     categories = {
         "baking": "Baking and Cooking Ingredients",
-        "cereals-grains": "Cereals / Grains",
+        "cereals-grains": "Cereals & Grains",
         "pasta-noodles": "Pasta & Noodles",
         "snacks-sweets": "Snacks & Sweets",
-        "proteins-legumes": "Proteins / Legumes",
+        "proteins-legumes": "Proteins & Legumes",
         "prepared-mixes": "Prepared Mixes",
         "bread-baked-goods": "Bread & Baked Goods",
-        "other-misc": "Other / Miscellaneous",
+        "other-misc": "Miscellaneous",
     }
 
     category_items = {
@@ -246,7 +251,7 @@ def dry_goods_category_detail(request, category_slug):
     items = Product.objects.filter(item_name__in=item_names)
 
     context = {
-        'category_name': category_name,
+        'category': category_name,
         'items': items,
     }
     return render(request, 'shelf_life/dry_goods_category_detail.html', context)
@@ -295,7 +300,7 @@ def refrigerated_categories(request):
         ("dairy-cooler", "Dairy and Cooler Items"),
         ("cut-produce", "Cut Produce"),
         ("meats", "Meats"),
-        ("prepared-foods", "Prepared Foods / Deli Items"),
+        ("prepared-foods", "Prepared Foods & Deli Items"),
     ]
     return render(request, "shelf_life/refrigerated_categories.html", {"categories": categories})
 
