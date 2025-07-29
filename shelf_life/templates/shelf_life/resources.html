@@ -1,70 +1,41 @@
-{% load static %}
+{% extends 'info_page_base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Food Safety Resources - Foodcheqr</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 700px;
-      margin: 60px auto;
-      background: #fafafa;
-      color: #333;
-      padding: 30px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: left;
-    }
-    h1 {
-      color: #2a7ae2;
-      margin-bottom: 20px;
-      font-weight: 600;
-      text-align: center;
-    }
-    ul {
-      font-size: 17px;
-      line-height: 1.7;
-      padding-left: 20px;
-    }
-    li {
-      margin-bottom: 15px;
-    }
-    a {
-      color: #2a7ae2;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .signature {
-      font-style: italic;
-      color: #666;
-      margin-top: 40px;
-      font-size: 16px;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <h1>Food Safety Resources</h1>
-  <ul>
-    <li><a href="https://www.foodsafety.gov" target="_blank">www.foodsafety.gov</a></li>
-    <li><a href="https://www.fns.usda.gov/fs/food-safety-resources" target="_blank">
-      USDA Food Safety Resources</a></li>
-    <li><a href="http://www.fightbac.org/free-resources/" target="_blank">
-      Fight BAC! Free Resources</a></li>
-    <li><a href="https://www.statefoodsafety.com/Resources" target="_blank">
-      StateFoodSafety.com Resources</a></li>
-    <li><a href="https://www.fda.gov/Food/ResourcesForYou/HealthCareProfessionals/default.htm" target="_blank">
-      FDA Resources for Health Professionals</a></li>
-    <li><a href="https://www.fmi.org/food-safety/food-safety-resources" target="_blank">
-      FMI Food Safety Resources</a></li>
-  </ul>
+{% block title %}Food Safety Resources - Foodcheqr{% endblock %}
 
-  <p class="signature">
-    Explore these trusted resources for additional information on food safety practices.
-  </p>
-</body>
-</html>
+{% block extra_css %}
+ul {
+    font-size: 17px;
+    line-height: 1.7;
+    padding-left: 20px;
+}
+li {
+    margin-bottom: 15px;
+}
+a {
+    color: #2a7ae2;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+{% endblock %}
+
+{% block content %}
+    <h1>Food Safety Resources</h1>
+    <ul>
+        <li><a href="https://www.foodsafety.gov" target="_blank">www.foodsafety.gov</a></li>
+        <li><a href="https://www.fns.usda.gov/fs/food-safety-resources" target="_blank">
+            USDA Food Safety Resources</a></li>
+        <li><a href="http://www.fightbac.org/free-resources/" target="_blank">
+            Fight BAC! Free Resources</a></li>
+        <li><a href="https://www.statefoodsafety.com/Resources" target="_blank">
+            StateFoodSafety.com Resources</a></li>
+        <li><a href="https://www.fda.gov/Food/ResourcesForYou/HealthCareProfessionals/default.htm" target="_blank">
+            FDA Resources for Health Professionals</a></li>
+        <li><a href="https://www.fmi.org/food-safety/food-safety-resources" target="_blank">
+            FMI Food Safety Resources</a></li>
+    </ul>
+    <p class="signature">
+        Explore these trusted resources for additional information on food safety practices.
+    </p>
+{% endblock %}

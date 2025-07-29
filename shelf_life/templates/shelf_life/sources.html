@@ -1,82 +1,60 @@
-{% load static %}
+{% extends 'info_page_base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Sources - Foodcheqr</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 700px;
-      margin: 60px auto;
-      background: #fafafa;
-      color: #333;
-      padding: 30px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: left;
-    }
-    h1 {
-      color: #2a7ae2;
-      margin-bottom: 20px;
-      font-weight: 600;
-      text-align: center;
-    }
-    ol {
-      font-size: 17px;
-      line-height: 1.7;
-      padding-left: 20px;
-    }
-    li {
-      margin-bottom: 15px;
-    }
-    a {
-      color: #2a7ae2;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .signature {
-      font-style: italic;
-      color: #666;
-      margin-top: 40px;
-      font-size: 16px;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <h1>Sources</h1>
-  <ol>
-    <li>“Shelf Life of Food Bank Products.” 2012. Greater Pittsburgh Community Food Bank</li>
-    <li>“Food Product Dating.” December 2016. USDA Food Safety and Inspection Service.</li>
-    <li>“Bottled Water Storage.” International Bottled Water Association<br>
-      <a href="https://www.bottledwater.org" target="_blank">www.bottledwater.org</a>
-    </li>
-    <li>“Food Storage”; No. EC446; Albrecht, Julie A.; University of Nebraska</li>
-    <li>“Safe Home Food Storage”; Van Laanen, Peggy; Texas A&amp;M Extension Service; B-5031; May 1999.</li>
-    <li>“The Food Keeper – A Consumer Guide to Food Quality &amp; Safe Handling.” Food Marketing Institute.</li>
-    <li>“Classification of Visible External Can Defects.” AOAC International in Cooperation with the Food and Drug Administration.</li>
-    <li>The Produce Blue Book<br>
-      <!-- <a href="https://www.producebluebook.com/wp-content/uploads/KYC/Fresh-Cut-Produce.pdf" target="_blank">
-        https://www.producebluebook.com/wp-content/uploads/KYC/Fresh-Cut-Produce.pdf
-      </a> -->
-    <a href="https://www.producebluebook.com/" target="_blank">
-        https://www.producebluebook.com/
-      </a>
-    </li>
-    <li>University of California Postharvest Center<br>
-      <a href="http://postharvest.ucdavis.edu" target="_blank">http://postharvest.ucdavis.edu</a><br>
-      <a href="http://postharvest.ucdavis.edu/Commodity_Resources/Fact_Sheets/" target="_blank">
-        http://postharvest.ucdavis.edu/Commodity_Resources/Fact_Sheets/
-      </a>
-    </li>
-  </ol>
+{% block title %}Sources - Foodcheqr{% endblock %}
 
-  <p class="signature">
-    This work wouldn't be possible without the research and guidance of these trusted sources.
-  </p>
-</body>
-</html>
+{% block extra_css %}
+ol {
+    font-size: 17px;
+    line-height: 1.7;
+    padding-left: 20px;
+    text-align: left;
+}
+li {
+    margin-bottom: 15px;
+}
+a {
+    color: #2a7ae2;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+.content-box {
+    text-align: left;
+}
+.content-box h1 {
+    text-align: center;
+}
+.content-box .signature {
+    text-align: center;
+}
+{% endblock %}
+
+{% block content %}
+    <h1>Sources</h1>
+    <ol>
+        <li>"Shelf Life of Food Bank Products." 2012. Greater Pittsburgh Community Food Bank</li>
+        <li>"Food Product Dating." December 2016. USDA Food Safety and Inspection Service.</li>
+        <li>"Bottled Water Storage." International Bottled Water Association<br>
+            <a href="https://www.bottledwater.org" target="_blank">www.bottledwater.org</a>
+        </li>
+        <li>"Food Storage"; No. EC446; Albrecht, Julie A.; University of Nebraska</li>
+        <li>"Safe Home Food Storage"; Van Laanen, Peggy; Texas A&M Extension Service; B-5031; May 1999.</li>
+        <li>"The Food Keeper – A Consumer Guide to Food Quality & Safe Handling." Food Marketing Institute.</li>
+        <li>"Classification of Visible External Can Defects." AOAC International in Cooperation with the Food and Drug Administration.</li>
+        <li>The Produce Blue Book<br>
+            <a href="https://www.producebluebook.com/" target="_blank">
+                https://www.producebluebook.com/
+            </a>
+        </li>
+        <li>University of California Postharvest Center<br>
+            <a href="http://postharvest.ucdavis.edu" target="_blank">http://postharvest.ucdavis.edu</a><br>
+            <a href="http://postharvest.ucdavis.edu/Commodity_Resources/Fact_Sheets/" target="_blank">
+                http://postharvest.ucdavis.edu/Commodity_Resources/Fact_Sheets/
+            </a>
+        </li>
+    </ol>
+    <p class="signature">
+        This work wouldn't be possible without the research and guidance of these trusted sources.
+    </p>
+{% endblock %}

@@ -1,59 +1,30 @@
+{% extends 'info_page_base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Storage Guidelines - Foodcheqr</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 700px;
-      margin: 60px auto;
-      background: #fafafa;
-      color: #333;
-      padding: 30px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: left;
-    }
-    h1 {
-      color: #2a7ae2;
-      margin-bottom: 20px;
-      font-weight: 600;
-      text-align: center;
-    }
-    ul {
-      font-size: 17px;
-      line-height: 1.7;
-      padding-left: 20px;
-    }
-    li {
-      margin-bottom: 15px;
-    }
-    .footer-note {
-      font-size: 14px;
-      color: #666;
-      margin-top: 40px;
-      text-align: center;
-      font-style: italic;
-    }
-  </style>
-</head>
-<body>
-  <h1>Guidelines for the Storage of Fresh Produce</h1>
-  <ul>
-    <li>Most fruits and vegetables have the best quality when kept refrigerated.</li>
-    <li>Leafy greens either whole or cut must always be stored under refrigeration at 41°F or below.</li>
-    <li>All cut produce must be stored at 41°F or below, but too cold and it could cause damage. Fresh cut fruit has a shelf life of 2–9 days depending on the commodity and product. The most perishable items include strawberry slices, melon chunks, mango cubes, citrus segments, sliced kiwi, peaches or pears, and grape berries.</li>
-    <li>Bananas should not be refrigerated — this will cause the skin to blacken and stop the fruit from ripening. Bananas create their own CO₂ and ripen faster in a sealed bag. They can be frozen for use in smoothies and baked goods.</li>
-    <li>Very fresh apples, mangoes, and stone fruits can be stored at room temperature but should be refrigerated as they ripen.</li>
-    <li>Hardy vegetables such as onions, potatoes, sweet potatoes, winter squash, and garlic can be stored in cool, dark places outside of the cooler. Potatoes should not be exposed to direct sunlight.</li>
-    <li>When deciding how best to store produce and improve shelf life, use how the produce department in the grocery store is set up as a guide.</li>
-  </ul>
+{% block title %}Storage Guidelines - Foodcheqr{% endblock %}
 
-  <p class="footer-note">
-    Form: OPS-1.3.2.1-01 | Revision Date: 1/16/2024 | Issue Date: May 24, 2018 | Revision: 4
-  </p>
-</body>
-</html>
+{% block content %}
+    <h1>Guidelines for the Storage of Fresh Produce</h1>
+    <ul>
+        <li>Most fruits and vegetables have the best quality when kept refrigerated.</li>
+        <li>Leafy greens either whole or cut must always be stored under refrigeration at 41°F or below.</li>
+        <li>All cut produce must be stored at 41°F or below, but too cold and it could cause damage. Fresh cut fruit has a shelf life of 2–9 days depending on the commodity and product. The most perishable items include strawberry slices, melon chunks, mango cubes, citrus segments, sliced kiwi, peaches or pears, and grape berries.</li>
+        <li>Bananas should not be refrigerated — this will cause the skin to blacken and stop the fruit from ripening. Bananas create their own CO₂ and ripen faster in a sealed bag. They can be frozen for use in smoothies and baked goods.</li>
+        <li>Very fresh apples, mangoes, and stone fruits can be stored at room temperature but should be refrigerated as they ripen.</li>
+        <li>Hardy vegetables such as onions, potatoes, sweet potatoes, winter squash, and garlic can be stored in cool, dark places outside of the cooler. Potatoes should not be exposed to direct sunlight.</li>
+        <li>When deciding how best to store produce and improve shelf life, use how the produce department in the grocery store is set up as a guide.</li>
+    </ul>
+    <p class="footer-note">
+        Form: OPS-1.3.2.1-01 | Revision Date: 1/16/2024 | Issue Date: May 24, 2018 | Revision: 4
+    </p>
+
+    <style>
+        .footer-note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 40px;
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
