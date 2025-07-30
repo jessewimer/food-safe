@@ -1,184 +1,160 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Donate to Foodcheqr</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 700px;
-      margin: 60px auto;
-      background: #fafafa;
-      color: #333;
-      padding: 30px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    h1 {
-      color: #2a7ae2;
-      margin-bottom: 12px;
-      font-weight: 600;
-    }
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
-    .donate-button {
-      background-color: #2a7ae2;
-      color: white;
-      border: none;
-      padding: 15px 40px;
-      font-size: 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.3s ease;
-    }
-    .donate-button:hover {
-      background-color: #1f5bbf;
-    }
-    .signature {
-      font-style: italic;
-      color: #666;
-      margin-top: 40px;
-      font-size: 16px;
-    }
+{% extends 'info_page_base.html' %}
 
-    /* Popup Styles */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
+{% block title %}Donate to Foodcheqr{% endblock %}
 
-    .popup-content {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-      animation: popupAppear 0.3s ease-out;
-    }
-
-    @keyframes popupAppear {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .popup-title {
-      color: #ff6b35;
-      margin-bottom: 20px;
-      font-size: 24px;
-      font-weight: 600;
-    }
-
-    .popup-message {
-      color: #333;
-      margin-bottom: 20px;
-      line-height: 1.6;
-      font-size: 16px;
-    }
-
-    .popup-email {
-      background-color: #f8f9fa;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 20px 0;
-      border-left: 4px solid #2a7ae2;
-    }
-
-    .popup-email strong {
-      color: #2a7ae2;
-      font-size: 18px;
-    }
-
-    .popup-close {
-      background-color: #2a7ae2;
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .popup-close:hover {
-      background-color: #1f5bbf;
-    }
-
-    .construction-icon {
-      font-size: 48px;
-      margin-bottom: 15px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Support Foodcheqr</h1>
-  <p>
-    Your donations help us build digital tools to support the operational needs of food banks throughout the region.
-  </p>
-  <p>
-    If you would like to support our mission, please consider donating.
-  </p>
+{% block content %}
+<h1>Support Foodcheqr</h1>
+<p>
+  Your donations help us build digital tools to support the operational needs of food banks throughout the region.
+</p>
+<p>
+  If you would like to support our mission, please consider donating.
+</p>
+<div style="text-align: center; margin: 30px 0;">
   <a href="javascript:void(0)" class="donate-button" onclick="showPopup()">Donate Now</a>
-  <p class="signature">
-    Thank you for your generosity!
-  </p>
+</div>
+<p class="signature">
+  Thank you for your generosity!
+</p>
 
-  <!-- Popup Overlay -->
-  <div class="popup-overlay" id="popupOverlay" onclick="hidePopup()">
-    <div class="popup-content" onclick="event.stopPropagation()">
-      <div class="construction-icon">🚧</div>
-      <h2 class="popup-title">Feature Under Construction</h2>
-      <p class="popup-message">
-        We're currently working on implementing our donation system to make it as secure and user-friendly as possible.
-      </p>
-      <div class="popup-email">
-        <p><strong>For donation options, please email:</strong></p>
-        <p><strong>jesse.wimer@wsu.edu</strong></p>
-      </div>
-      <p class="popup-message">
-        Thank you for your patience and interest in supporting Foodcheqr!
-      </p>
-      <button class="popup-close" onclick="hidePopup()">Got it!</button>
+<!-- Popup Overlay -->
+<div class="popup-overlay" id="popupOverlay" onclick="hidePopup()">
+  <div class="popup-content" onclick="event.stopPropagation()">
+    <div class="construction-icon">🚧</div>
+    <h2 class="popup-title">Feature Under Construction</h2>
+    <p class="popup-message">
+      We're currently working on implementing our donation system to make it as secure and user-friendly as possible.
+    </p>
+    <div class="popup-email">
+      <p><strong>For donation options, please email:</strong></p>
+      <p><strong>jesse.wimer@wsu.edu</strong></p>
     </div>
+    <p class="popup-message">
+      Thank you for your patience and interest in supporting Foodcheqr!
+    </p>
+    <button class="popup-close" onclick="hidePopup()">Got it!</button>
   </div>
+</div>
+{% endblock %}
 
-  <script>
-    function showPopup() {
-      document.getElementById('popupOverlay').style.display = 'flex';
+{% block extra_js %}
+<style>
+  .donate-button {
+    background-color: #2a7ae2;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .donate-button:hover {
+    background-color: #1f5bbf;
+  }
+
+  /* Popup Styles */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .popup-content {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    animation: popupAppear 0.3s ease-out;
+  }
+
+  @keyframes popupAppear {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
     }
-
-    function hidePopup() {
-      document.getElementById('popupOverlay').style.display = 'none';
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
+  }
 
-    // Close popup when pressing Escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        hidePopup();
-      }
-    });
-  </script>
-</body>
-</html>
+  .popup-title {
+    color: #ff6b35;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .popup-message {
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  .popup-email {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #2a7ae2;
+  }
+
+  .popup-email strong {
+    color: #2a7ae2;
+    font-size: 18px;
+  }
+
+  .popup-close {
+    background-color: #2a7ae2;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .popup-close:hover {
+    background-color: #1f5bbf;
+  }
+
+  .construction-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+  }
+</style>
+
+<script>
+  function showPopup() {
+    document.getElementById('popupOverlay').style.display = 'flex';
+  }
+
+  function hidePopup() {
+    document.getElementById('popupOverlay').style.display = 'none';
+  }
+
+  // Close popup when pressing Escape key
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      hidePopup();
+    }
+  });
+</script>
+{% endblock %}

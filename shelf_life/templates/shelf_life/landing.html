@@ -174,57 +174,135 @@
       margin-bottom: 30px;
     }
 
-    .get-started-button {
-      background-color: #2a7ae2;
+    /* Updated Middle Section Styles */
+    .main-actions {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      margin: 10px auto 40px;
+      max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid rgba(42, 122, 226, 0.1);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 35px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .action-button {
+      background: linear-gradient(135deg, #2a7ae2 0%, #1f5bbf 100%);
       color: white;
       border: none;
-      padding: 12px 28px;
-      font-size: 18px;
-      font-weight: bold;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      border-radius: 12px;
-      cursor: pointer;
-      margin: 10px 0;
-      margin-top: 40px;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.3s ease;
-    }
-
-    .get-started-button:hover {
-      background-color: #1f5bbf;
-    }
-
-    button {
-      background-color: #2a7ae2;
-      color: white;
-      border: none;
-      padding: 7px 28px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 12px;
-      cursor: pointer;
-      margin: 10px 0;
-      transition: background-color 0.3s ease;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    button:hover {
-      background-color: #1f5bbf;
-    }
-
-    input[type="text"] {
-      padding: 8px 12px;
+      padding: 14px 32px;
       font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      width: 200px;
-      margin-right: 10px;
+      font-weight: 600;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      min-width: 140px;
+      box-shadow: 0 2px 8px rgba(42, 122, 226, 0.3);
+    }
+
+    .action-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(42, 122, 226, 0.4);
+      background: linear-gradient(135deg, #1f5bbf 0%, #164a9f 100%);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #ddd, transparent);
+    }
+
+    .divider-text {
+      margin: 0 20px;
+      color: #666;
+      font-size: 16px;
+      font-weight: 500;
+      background: white;
+      padding: 0 10px;
+    }
+
+    .search-section {
+      position: relative;
+    }
+
+    .search-container {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      padding: 12px 18px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 2px solid #e1e5e9;
+      min-width: 220px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #2a7ae2;
+      box-shadow: 0 0 0 3px rgba(42, 122, 226, 0.1);
+    }
+
+    .search-button {
+      background: linear-gradient(135deg, #28a745 0%, #20834a 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+    }
+
+    .search-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+      background: linear-gradient(135deg, #20834a 0%, #1a6b3a 100%);
     }
 
     form {
-      margin-top: 20px;
+      margin: 0;
+    }
+
+    /* Navigator Title */
+    .navigator-title {
+      color: #2a7ae2;
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     /* Media Queries for Responsive Design */
@@ -249,19 +327,38 @@
         padding: 100px 15px 30px;
       }
 
-      .get-started-button {
-        font-size: 16px;
-        padding: 10px 24px;
+      .main-actions {
+        margin: 10px 15px 30px;
+        padding: 30px 20px;
       }
 
-      input[type="text"] {
-        width: 150px;
-        font-size: 14px;
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
       }
 
-      button {
-        font-size: 16px;
-        padding: 6px 24px;
+      .action-button {
+        width: 100%;
+        max-width: 250px;
+      }
+
+      .search-container {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .search-input {
+        width: 100%;
+        min-width: auto;
+      }
+
+      .search-button {
+        width: 100%;
+      }
+
+      .navigator-title {
+        font-size: 28px;
+        margin-bottom: 8px;
       }
     }
 
@@ -279,25 +376,34 @@
         font-size: 14px;
       }
 
-      .get-started-button {
-        font-size: 14px;
-        padding: 8px 20px;
-        margin-top: 30px;
+      .main-actions {
+        margin: 8px 10px 20px;
+        padding: 25px 15px;
+        border-radius: 16px;
       }
 
-      input[type="text"] {
-        width: 120px;
-        font-size: 13px;
-        padding: 6px 10px;
+      .action-button {
+        font-size: 15px;
+        padding: 12px 24px;
       }
 
-      button {
-        font-size: 14px;
-        padding: 6px 20px;
+      .search-input {
+        font-size: 15px;
+        padding: 10px 15px;
+      }
+
+      .search-button {
+        font-size: 15px;
+        padding: 10px 20px;
       }
 
       .nav-links {
         gap: 30px;
+      }
+
+      .navigator-title {
+        font-size: 24px;
+        margin-bottom: 6px;
       }
     }
 
@@ -484,16 +590,46 @@
     </div>
   </div>
 
-  <!-- Main content -->
-  <div>
-    <a href="{% url 'category_select' %}" class="get-started-button">Use Flowchart</a>
-    <p style="font-size: 20px; font-weight: bold; padding-top: 25px; padding-bottom: 25px;">OR</p>
+  <!-- Flowchart Construction Popup -->
+  <div class="dev-popup-overlay" id="flowchartPopupOverlay" onclick="hideFlowchartPopup()">
+    <div class="dev-popup-content" onclick="event.stopPropagation()">
+      <div class="development-icon">🚧</div>
+      <h2 class="dev-popup-title">Under Construction</h2>
+      <p class="dev-popup-message">
+        The Flowchart feature is currently being developed and will be available soon.
+      </p>
+      <div class="dev-popup-warning">
+        <p><strong>Coming Soon:</strong></p>
+        <p>We're working hard to bring you an interactive flowchart to guide you through food safety decisions!</p>
+      </div>
+      <p class="dev-popup-message">
+        In the meantime, please use the Categories or Search functionality.
+      </p>
+      <button class="dev-popup-close" onclick="hideFlowchartPopup()">Got It</button>
+    </div>
   </div>
 
-  <form id="search-form" action="{% url 'search' %}" method="get">
-    <input type="text" name="q" placeholder="Search food items..." />
-    <button type="submit">Search</button>
-  </form>
+  <!-- Main content with redesigned middle section -->
+  <h2 class="navigator-title">Shelf Life Navigator</h2>
+  <div class="main-actions">
+    <div class="action-buttons">
+      <a href="{% url 'category_select' %}" class="action-button">Categories</a>
+      <a href="#" class="action-button" onclick="showFlowchartPopup(); return false;">Flowchart</a>
+    </div>
+
+    <div class="divider">
+      <div class="divider-text">OR</div>
+    </div>
+
+    <div class="search-section">
+      <form id="search-form" action="{% url 'search' %}" method="get">
+        <div class="search-container">
+          <input type="text" name="q" placeholder="Search food items..." class="search-input" />
+          <button type="submit" class="search-button">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- add bottom bar -->
   <div class="bottom-bar">
@@ -604,6 +740,15 @@
       return !hasSeenThisQuarter;
     }
 
+    // FLOWCHART CONSTRUCTION POPUP FUNCTIONS
+    function showFlowchartPopup() {
+      document.getElementById('flowchartPopupOverlay').style.display = 'flex';
+    }
+
+    function hideFlowchartPopup() {
+      document.getElementById('flowchartPopupOverlay').style.display = 'none';
+    }
+
     // DEVELOPMENT WARNING POPUP FUNCTIONS
     function showDevPopup() {
       document.getElementById('devPopupOverlay').style.display = 'flex';
@@ -618,6 +763,7 @@
       if (event.key === 'Escape') {
         hideDevPopup();
         hideFundraisingPopup();
+        hideFlowchartPopup();
       }
     });
 

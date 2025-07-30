@@ -5,7 +5,7 @@
     <style>
         body {
             font-family: sans-serif;
-            padding: 2rem;
+            padding: 1rem;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -13,8 +13,26 @@
             background: white;
             min-height: 100vh;
             position: relative;
+            box-sizing: border-box;
         }
-        
+
+        /* Mobile-specific adjustments */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            .top-center-buttons {
+                margin-bottom: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+            
+            .footer {
+                padding-top: 0.5rem;
+                font-size: 13px;
+            }
+        }
+       
         /* Top-center button container with header line */
         .top-center-buttons {
             display: flex;
@@ -24,7 +42,7 @@
             padding-bottom: 1rem;
             border-bottom: 1px solid #ddd;
         }
-        
+       
         .top-center-buttons a {
             padding: 10px 18px;
             font-size: 16px;
@@ -37,25 +55,25 @@
             width: 100px;
             margin: 0 5px; /* Add spacing between multiple buttons */
         }
-        
+       
         .home-button {
             background-color: #007BFF;
             color: white;
         }
-        
+       
         .home-button:hover {
             background-color: #0056b3;
         }
-        
+       
         .back-button {
             background-color: #007BFF;
             color: white;
         }
-        
+       
         .back-button:hover {
             background-color: #0056b3;
         }
-        
+       
         /* Page titles */
         h2 {
             margin-top: 0;
@@ -63,7 +81,7 @@
             width: 100%;
             text-align: center;
         }
-        
+       
         /* Standard category/option buttons */
         .button {
             display: block;
@@ -80,38 +98,49 @@
             transition: background-color 0.3s;
             cursor: pointer;
         }
-        
+       
         .button:hover {
             background-color: #388e3c;
         }
-        
+       
         /* Additional button styles for different contexts */
         .button.secondary {
             background-color: #17a2b8;
         }
-        
+       
         .button.secondary:hover {
             background-color: #138496;
         }
-        
+       
         .button.warning {
             background-color: #ffc107;
             color: #212529;
         }
-        
+       
         .button.warning:hover {
             background-color: #e0a800;
         }
-        
+       
         /* Content area */
         .content {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            flex-grow: 1;
         }
-        
 
+        /* Footer with line */
+        .footer {
+            width: 100%;
+            padding-top: 1rem;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: auto;
+        }
+       
     </style>
 </head>
 <body>
@@ -120,11 +149,17 @@
         <a href="{% url 'landing' %}" class="home-button">Home</a>
         {% endblock %}
     </div>
-    
+   
     <div class="content">
         {% block content %}{% endblock %}
     </div>
-    
+
+    <div class="footer">
+        {% block footer %}
+        <p>&copy; 2025 Foodcheqr - Designed for Food Banks</p>
+        {% endblock %}
+    </div>
+   
     {% block extra_js %}
     <!-- Custom JavaScript can be added here in child templates -->
     {% endblock %}
