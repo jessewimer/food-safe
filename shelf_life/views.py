@@ -64,14 +64,55 @@ def search(request):
     })
 
 
+# @login_required
+# def product_detail(request, product_id):
+#     product = get_object_or_404(Product, pk=product_id)
+#     came_from = request.GET.get('from', '')   # e.g. 'search' or 'baby_food'
+#     query = request.GET.get('q', '')           # search query if any
+
+#     context = {
+#         'product': product,
+#         'came_from': came_from,
+#         'query': query,
+#     }
+#     return render(request, 'shelf_life/product_detail.html', context)
+from datetime import timedelta, date
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+from .models import Product
+
 @login_required
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    came_from = request.GET.get('from', '')   # e.g. 'search' or 'baby_food'
-    query = request.GET.get('q', '')           # search query if any
+    came_from = request.GET.get('from', '')
+    query = request.GET.get('q', '')
+
+    def get_shelf_life_data(label, lower, upper, note):
+        if not lower and not upper:
+            return None  # Skip if no shelf life data exists
+
+        same = lower == upper
+        cutoff = date.today() - timedelta(days=upper) if upper else None
+
+        return {
+            "label": label,
+            "lower": lower,
+            "upper": upper,
+            "same": same,
+            "cutoff": cutoff,
+            "note": note,
+        }
+
+    shelf_lives = {
+        "Baby Food": get_shelf_life_data("Baby Food", product.baby_food_lower, product.baby_food_upper, product.baby_food_note),
+        "Shelf-Stable": get_shelf_life_data("Shelf-Stable", product.shelf_stable_lower, product.shelf_stable_upper, product.shelf_stable_note),
+        "Refrigerated": get_shelf_life_data("Refrigerated", product.frig_lower, product.frig_upper, product.frig_note),
+        "Frozen": get_shelf_life_data("Frozen", product.frozen_lower, product.frozen_upper, product.frozen_note),
+    }
 
     context = {
         'product': product,
+        'shelf_lives': shelf_lives,
         'came_from': came_from,
         'query': query,
     }

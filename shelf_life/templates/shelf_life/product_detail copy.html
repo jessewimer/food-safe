@@ -1,0 +1,70 @@
+{% extends "flowchart_result_base.html" %}
+
+{% block title %}Product Detail{% endblock %}
+
+{% block header_buttons %}
+    {% if came_from == 'search' %}
+        <a href="{% url 'search' %}?q={{ query|urlencode }}" class="back-button">← Back to Search</a>
+    {% elif came_from == 'baby_food' %}
+        <a href="{% url 'baby_food_list' %}" class="back-button">← Back</a>
+    {% else %}
+        <a href="javascript:history.back()" class="back-button">← Back</a>
+    {% endif %}
+    <a href="{% url 'landing' %}" class="home-button">Home</a>
+{% endblock %}
+
+{% block content %}
+    <h2>{{ product.item_name }}</h2>
+
+    <div class="product-info" style="
+        max-width: 600px;
+        width: 90%;
+        padding: 1.5rem;
+        margin-top: 1rem;
+        background-color: #f8f8f8;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    ">
+
+        {% if product.baby_food_shelf_life %}
+            <div class="category-block">
+                <p><span class="label">Category:</span> <span class="value">Baby Food</span></p>
+                <p><span class="label">Shelf Life:</span> <span class="value">{{ product.baby_food_shelf_life }}</span></p>
+                {% if product.baby_food_note %}
+                    <p><span class="label">Notes:</span> <span class="value">{{ product.baby_food_note }}</span></p>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if product.shelf_stable_shelf_life %}
+            <div class="category-block">
+                <p><span class="label">Category:</span> <span class="value">Shelf Stable</span></p>
+                <p><span class="label">Shelf Life:</span> <span class="value">{{ product.shelf_stable_shelf_life }}</span></p>
+                {% if product.shelf_stable_note %}
+                    <p><span class="label">Notes:</span> <span class="value">{{ product.shelf_stable_note }}</span></p>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if product.frig_shelf_life %}
+            <div class="category-block">
+                <p><span class="label">Category:</span> <span class="value">Refrigerated</span></p>
+                <p><span class="label">Shelf Life:</span> <span class="value">{{ product.frig_shelf_life }}</span></p>
+                {% if product.frig_note %}
+                    <p><span class="label">Notes:</span> <span class="value">{{ product.frig_note }}</span></p>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if product.frozen_shelf_life %}
+            <div class="category-block">
+                <p><span class="label">Category:</span> <span class="value">Frozen</span></p>
+                <p><span class="label">Shelf Life:</span> <span class="value">{{ product.frozen_shelf_life }}</span></p>
+                {% if product.frozen_note %}
+                    <p><span class="label">Notes:</span> <span class="value">{{ product.frozen_note }}</span></p>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
