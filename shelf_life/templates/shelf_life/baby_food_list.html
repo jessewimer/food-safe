@@ -13,7 +13,9 @@
         <ul>
             {% for product in products %}
                 <li>
-                    <a href="{% url 'product_detail' product.id %}" class="result-button">{{ product.item_name }}</a>
+                    <a href="{% url 'product_detail' product.id %}?from=baby_food" class="result-button">
+                        {{ product.item_name }}
+                    </a>
                 </li>
             {% endfor %}
         </ul>

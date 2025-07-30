@@ -11,7 +11,9 @@ urlpatterns = [
     path('resources/', views.resources, name='resources'),
     path('contact/', views.contact, name='contact'),
 
-    path("product/<int:product_id>/", views.product_detail, name="product_detail"),
+
+    path('products/<int:pk>/', views.product_detail, name='product_detail'),
+    # path("product/<int:product_id>/", views.product_detail, name="product_detail"),
     path('coming-soon/', views.coming_soon, name='coming_soon'),
 
     path("categories/", views.category_select, name="category_select"),

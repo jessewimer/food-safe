@@ -1,6 +1,6 @@
 {% extends 'flowchart_result_base.html' %}
 
-{% block title %}{{ category }} Items - Foodcheqr{% endblock %}
+{% block title %}{{ category|default:"Category" }} Items - Foodcheqr{% endblock %}
 
 {% block header_buttons %}
 <a href="{% url 'dry_goods_subcategories' %}" class="back-button">← Back</a>
@@ -8,7 +8,8 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Dry Goods | {{ category }}</h2>
+    <h2>{{ category|default:"Unknown Category" }}</h2>
+
     {% if items %}
         <ul>
             {% for item in items %}
