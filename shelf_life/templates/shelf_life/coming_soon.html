@@ -10,6 +10,7 @@
             text-align: center;
             padding-top: 100px;
         }
+
         .message {
             background: white;
             display: inline-block;
@@ -17,12 +18,29 @@
             border-radius: 10px;
             box-shadow: 0 0 10px #ccc;
         }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="message">
         <h1>🚧 Coming Soon</h1>
         <p>This feature is under construction.<br>Please check back later!</p>
+        <a href="javascript:history.back()" class="back-button">← Back</a>
     </div>
 </body>
 </html>

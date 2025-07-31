@@ -1,38 +1,104 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from shelf_life.models import Product
+from shelf_life.models import Product, ProductView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from .models import Comment
 from .forms import CommentForm
-
+from datetime import date, timedelta
+from django.utils.timezone import now
+from django.db.models import Count, Max
 
 def landing_redirect(request):
     return redirect('login')
 
 
+def get_client_ip(request):
+    """Get the client's IP address from the request object."""
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        return x_forwarded_for.split(",")[0]
+    return request.META.get("REMOTE_ADDR")
+
+
 @login_required
 def landing(request):
-    return render(request, 'shelf_life/landing.html')
+    # --- 1. Most viewed products ---
+    product_view_counts = (
+        ProductView.objects.values("product")
+        .annotate(view_count=Count("id"))
+        .order_by("-view_count")
+    )
+
+    # --- 1. Most viewed products ---
+    product_view_counts = (
+        ProductView.objects.values("product")
+        .annotate(view_count=Count("id"))
+        .order_by("-view_count")
+    )
+
+    most_viewed_ids = [item["product"] for item in product_view_counts[:3]]
+    most_viewed = Product.objects.filter(id__in=most_viewed_ids)
+    most_viewed = sorted(most_viewed, key=lambda p: most_viewed_ids.index(p.id))
+
+    print(f"Most viewed products: {most_viewed}")
+
+    # --- 2. Recently viewed (unique, most recent first) ---
+    user = request.user if request.user.is_authenticated else None
+    ip = get_client_ip(request)
+
+    recent_views_qs = (
+        ProductView.objects.filter(user=user) if user else ProductView.objects.filter(ip_address=ip)
+    ).order_by("-timestamp")
+
+    seen = set()
+    recent_product_ids = []
+
+    for view in recent_views_qs:
+        pid = view.product_id
+        if pid not in seen:
+            seen.add(pid)
+            recent_product_ids.append(pid)
+        if len(recent_product_ids) == 3:
+            break
+
+    # Maintain original ordering of recently_viewed based on recent_product_ids
+    recently_viewed = list(Product.objects.filter(id__in=recent_product_ids))
+    recently_viewed.sort(key=lambda p: recent_product_ids.index(p.id))
+
+    print(f"Recently viewed: {recently_viewed}")
+
+    context = {
+        "most_viewed": most_viewed,
+        "recently_viewed": recently_viewed,
+    }
+    return render(request, "shelf_life/landing.html", context)
+
 
 def coming_soon(request):
     return render(request, 'shelf_life/coming_soon.html')
 
+
 def guidelines(request):
     return render(request, 'shelf_life/guidelines.html')
+
 
 def about(request):
     return render(request, 'shelf_life/about.html')
 
+
 def donate(request):
     return render(request, 'shelf_life/donate.html')
+
 
 def sources(request):
     return render(request, 'shelf_life/sources.html')
 
+
 def resources(request):
     return render(request, 'shelf_life/resources.html')
+
 
 def contact(request):
     if request.method == 'POST':
@@ -63,174 +129,33 @@ def search(request):
         "results": results,
     })
 
-
-# @login_required
-# def product_detail(request, product_id):
-#     product = get_object_or_404(Product, pk=product_id)
-#     came_from = request.GET.get('from', '')   # e.g. 'search' or 'baby_food'
-#     query = request.GET.get('q', '')           # search query if any
-
-#     context = {
-#         'product': product,
-#         'came_from': came_from,
-#         'query': query,
-#     }
-#     return render(request, 'shelf_life/product_detail.html', context)
-from datetime import timedelta, date
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
-from .models import Product
-
-# @login_required
-# def product_detail(request, product_id):
-#     product = get_object_or_404(Product, pk=product_id)
-#     came_from = request.GET.get('from', '')
-#     query = request.GET.get('q', '')
-
-#     def get_shelf_life_data(label, lower, upper, note):
-#         if not lower and not upper:
-#             return None  # Skip if no shelf life data exists
-
-#         same = lower == upper
-#         cutoff = date.today() - timedelta(days=upper) if upper else None
-
-#         return {
-#             "label": label,
-#             "lower": lower,
-#             "upper": upper,
-#             "same": same,
-#             "cutoff": cutoff,
-#             "note": note,
-#         }
-
-#     shelf_lives = {
-#         "Baby Food": get_shelf_life_data("Baby Food", product.baby_food_lower, product.baby_food_upper, product.baby_food_note),
-#         "Shelf-Stable": get_shelf_life_data("Shelf-Stable", product.shelf_stable_lower, product.shelf_stable_upper, product.shelf_stable_note),
-#         "Refrigerated": get_shelf_life_data("Refrigerated", product.frig_lower, product.frig_upper, product.frig_note),
-#         "Frozen": get_shelf_life_data("Frozen", product.frozen_lower, product.frozen_upper, product.frozen_note),
-#     }
-
-#     context = {
-#         'product': product,
-#         'shelf_lives': shelf_lives,
-#         'came_from': came_from,
-#         'query': query,
-#     }
-#     return render(request, 'shelf_life/product_detail.html', context)
-# from datetime import date, timedelta
-# from django.contrib.auth.decorators import login_required
-# from django.shortcuts import get_object_or_404, render
-# from .models import Product
-
-# @login_required
-# def product_detail(request, product_id):
-#     product = get_object_or_404(Product, pk=product_id)
-#     came_from = request.GET.get('from', '')
-#     query = request.GET.get('q', '')
-
-#     def get_shelf_life_data(label, lower, upper, note):
-#         if not any([lower, upper, note]):
-#             return None  # Skip if ALL fields are empty
-
-#         same = lower == upper and lower is not None
-#         cutoff = date.today() - timedelta(days=upper) if upper else None
-
-#         return {
-#             "label": label,
-#             "lower": lower,
-#             "upper": upper,
-#             "same": same,
-#             "cutoff": cutoff,
-#             "note": note,
-#         }
-
-#     shelf_lives = {
-#         "Baby Food": get_shelf_life_data("Baby Food", product.baby_food_lower, product.baby_food_upper, product.baby_food_note),
-#         "Shelf-Stable": get_shelf_life_data("Shelf-Stable", product.shelf_stable_lower, product.shelf_stable_upper, product.shelf_stable_note),
-#         "Refrigerated": get_shelf_life_data("Refrigerated", product.frig_lower, product.frig_upper, product.frig_note),
-#         "Frozen": get_shelf_life_data("Frozen", product.frozen_lower, product.frozen_upper, product.frozen_note),
-#     }
-
-#     # Remove any categories that returned None
-#     shelf_lives = {k: v for k, v in shelf_lives.items() if v is not None}
-
-#     context = {
-#         'product': product,
-#         'shelf_lives': shelf_lives,
-#         'came_from': came_from,
-#         'query': query,
-#     }
-#     return render(request, 'shelf_life/product_detail.html', context)
-# views.py
-from django.shortcuts import render, get_object_or_404
-from datetime import timedelta, date
-from .models import Product
-
-# def product_detail(request, pk):
-#     product = get_object_or_404(Product, pk=pk)
-
-#     def get_category_data(prefix, label):
-#         shelf_life_str = getattr(product, f"{prefix}_shelf_life")
-#         lower = getattr(product, f"{prefix}_lower")
-#         upper = getattr(product, f"{prefix}_upper")
-#         note = getattr(product, f"{prefix}_note")
-
-#         has_data = any([shelf_life_str, lower, upper, note])
-
-#         if not has_data:
-#             return None
-
-#         cutoff = None
-#         same = lower and upper and lower == upper
-#         if lower:
-#             cutoff = date.today() - timedelta(days=lower)
-
-#         return {
-#             'label': label,
-#             'shelf_life_str': shelf_life_str,
-#             'lower': lower,
-#             'upper': upper,
-#             'same': same,
-#             'cutoff': cutoff,
-#             'note': note,
-#         }
-
-#     shelf_lives = {}
-#     for prefix, label in [
-#         ("baby_food", "Baby Food"),
-#         ("shelf_stable", "Shelf Stable"),
-#         ("frig", "Refrigerated"),
-#         ("frozen", "Frozen"),
-#     ]:
-#         data = get_category_data(prefix, label)
-#         if data:
-#             shelf_lives[label] = data
-
-#     return render(request, "shelf_life/product_detail.html", {
-#         "product": product,
-#         "shelf_lives": shelf_lives,
-#         "came_from": request.GET.get("from"),
-#         "query": request.GET.get("q", ""),
-#     })
-
-from datetime import date, timedelta
-from django.shortcuts import get_object_or_404, render
+# this is called from product_detail to get the client's IP address
+def get_client_ip(request):
+    """Get the client's IP address from the request object."""
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        return x_forwarded_for.split(",")[0]
+    return request.META.get("REMOTE_ADDR")
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
+    # --- Track the product view ---
+    ip = get_client_ip(request)
+    user = request.user if request.user.is_authenticated else None
+    ProductView.objects.create(product=product, user=user, ip_address=ip, timestamp=now())
+    print(f"Product viewed: {product.item_name} by {user if user else 'Anonymous'} from IP {ip}")
+
+    # --- Shelf life data logic ---
     def get_category_data(prefix, label):
-        # Use getattr with defaults and convert to string safely
         shelf_life_str = getattr(product, f"{prefix}_shelf_life", "") or ""
         shelf_life_str = shelf_life_str.strip()
 
-        # Use getattr, allow None
         lower = getattr(product, f"{prefix}_lower", None)
         upper = getattr(product, f"{prefix}_upper", None)
         note = getattr(product, f"{prefix}_note", "") or ""
         note = note.strip()
 
-        # Check if any data present
         if not any([shelf_life_str, lower is not None, upper is not None, note]):
             return None
 

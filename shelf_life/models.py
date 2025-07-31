@@ -1,8 +1,11 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Product(models.Model):
     item_name = models.CharField(max_length=255, unique=True)
-
+    category = models.CharField(max_length=100, blank=True)
     baby_food_shelf_life = models.CharField(max_length=100, blank=True)
     baby_food_subcategory = models.CharField(null=True, max_length=100, blank=True)
     baby_food_lower = models.IntegerField(null=True, blank=True)
@@ -32,6 +35,14 @@ class Product(models.Model):
     def __str__(self):
         return self.item_name
 
+class ProductView(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='views')
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-timestamp']
 
 class Comment(models.Model):
     author_name = models.CharField(max_length=100, blank=True)
