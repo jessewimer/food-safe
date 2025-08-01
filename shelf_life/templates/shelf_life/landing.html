@@ -337,55 +337,52 @@
       gap: 12px;
     }
 
-    .product-item {
-      background: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 10px;
-      padding: 8px 15px;
-      text-decoration: none;
-      color: #333;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-start;
-      height: 45px;
-      min-height: 45px;
-      max-height: 45px;
-      overflow: hidden;
-    }
 
-    .product-item:hover {
-      background: #e3f2fd;
-      border-color: #2a7ae2;
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(42, 122, 226, 0.15);
-      text-decoration: none;
-      color: #333;
-    }
+      .product-item {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 10px;
+        padding: 12px 15px;
+        text-decoration: none;
+        color: #333;
+        transition: all 0.2s ease;
+        display: block; /* Changed from flex to block for natural text flow */
+        overflow: hidden;
+      }
 
-    .product-name {
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1.2;
-      width: 100%;
-    }
+      .product-item:hover {
+        background: #e3f2fd;
+        border-color: #2a7ae2;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(42, 122, 226, 0.15);
+        text-decoration: none;
+        color: #333;
+      }
 
-    .product-category {
-      font-size: 15px;
-      color: #666;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1.2;
-      width: 100%;
-      margin-top: 0;
-    }
+      .product-name {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4; /* Increased further for better descender clearance */
+        width: 100%;
+        display: block;
+      }
 
+      .product-category {
+        font-size: 15px;
+        color: #666;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4; /* Increased line-height for consistency */
+        width: 100%;
+        margin-top: 0;
+        display: block;
+      }
+    
     .empty-state {
       text-align: center;
       color: #666;
@@ -696,16 +693,19 @@
         font-size: 18px;
       }
 
+
       .product-item {
         padding: 12px;
       }
 
       .product-name {
         font-size: 15px;
+        line-height: 1.4; /* Maintain consistent line-height */
       }
 
       .product-category {
         font-size: 13px;
+        line-height: 1.4; /* Maintain consistent line-height */
       }
 
       .action-button {
