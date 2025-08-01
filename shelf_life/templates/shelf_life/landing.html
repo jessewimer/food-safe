@@ -806,9 +806,9 @@
       <div class="main-actions">
         <div class="action-buttons">
           <a href="{% url 'category_select' %}" class="action-button">Categories</a>
-          <!-- <a href="#" class="action-button" onclick="showFlowchartPopup(); return false;">Flowchart</a> -->
            <!-- route flowchart click to coming_soon html -->
-           <a href="{% url 'coming_soon' %}" class="action-button">Flowchart</a>
+            <a href="javascript:void(0)" class="action-button" onclick="showConstructionPopup('default')">Flowchart</a>
+    
         </div>
 
         <div class="divider">
@@ -851,7 +851,8 @@
   <div class="bottom-bar">
     <p>&copy; 2025 Foodcheqr - Designed for Food Banks</p>
   </div>
-
+  
+  <script src="{% static 'js/construction-popup.js' %}"></script>
   <script>
     // Mobile Menu Toggle Function
     function toggleMobileMenu() {
@@ -954,16 +955,6 @@
       const hasSeenThisQuarter = localStorage.getItem(`fundraising_popup_seen_${currentQuarter}`);
       
       return !hasSeenThisQuarter;
-    }
-
-    // FLOWCHART CONSTRUCTION POPUP FUNCTIONS
-    function showFlowchartPopup() {
-      console.log("Flowchart popup triggered");
-      document.getElementById('flowchartPopupOverlay').style.display = 'flex';
-    }
-
-    function hideFlowchartPopup() {
-      document.getElementById('flowchartPopupOverlay').style.display = 'none';
     }
 
     // DEVELOPMENT WARNING POPUP FUNCTIONS

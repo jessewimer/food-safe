@@ -1,19 +1,21 @@
 {% extends "flowchart_base.html" %}
-
+{% load static %}
 {% block title %}Refrigerated Categories{% endblock %}
 
 {% block header_buttons %}
     <a href="{% url 'category_select' %}" class="back-button">← Back</a>
     <a href="{% url 'landing' %}" class="home-button">Home</a>
-    
 {% endblock %}
 
 {% block content %}
     <h2>Refrigerated Categories</h2>
-
     {% for slug, name in categories %}
         <!-- Uncomment below when ready -->
         <!-- <a href="{% url 'shelf_stable_detail' slug %}" class="button">{{ name }}</a> -->
-        <a href="{% url 'coming_soon' %}" class="button">{{ name }}</a>
+        <a href="javascript:void(0)" class="button" onclick="showConstructionPopup('default')">{{ name }}</a>
     {% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/construction-popup.js' %}"></script>
 {% endblock %}

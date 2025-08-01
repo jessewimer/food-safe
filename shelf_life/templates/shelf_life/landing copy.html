@@ -10,7 +10,7 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f8f9fa;
-      padding: 120px 20px 50px;
+      padding: 120px 20px 70px;
       text-align: center;
       margin: 0;
       min-height: 100vh;
@@ -161,17 +161,14 @@
       margin-top: 15px;
     }
 
-    /* Main Content Styles */
-    h1 {
-      margin-bottom: 20px;
-      font-weight: normal;
-      color: #333;
-    }
-
-    img.main-logo {
-      width: 300px;
-      height: auto;
-      margin-bottom: 30px;
+    /* Main Content Layout */
+    .main-content {
+      display: flex;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+      align-items: flex-start;
+      justify-content: center;
     }
 
     /* Navigator Title */
@@ -179,13 +176,13 @@
       color: #2a7ae2;
       font-size: 32px;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       margin-top: 10px;
       text-align: center;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* Updated Middle Section Styles */
+    /* Central Navigation Section */
     .main-actions {
       background: white;
       border-radius: 20px;
@@ -194,6 +191,7 @@
       max-width: 500px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       border: 1px solid rgba(42, 122, 226, 0.1);
+      flex: 0 0 auto;
     }
 
     .action-buttons {
@@ -202,6 +200,7 @@
       margin-bottom: 35px;
       justify-content: center;
       flex-wrap: wrap;
+      width: 100%;
     }
 
     .action-button {
@@ -221,6 +220,9 @@
       transition: all 0.3s ease;
       min-width: 140px;
       box-shadow: 0 2px 8px rgba(42, 122, 226, 0.3);
+      flex: 1 1 auto;
+      max-width: calc(50% - 7.5px); /* 50% minus half the gap */
+      box-sizing: border-box;
     }
 
     .action-button:hover {
@@ -304,6 +306,96 @@
       background: linear-gradient(135deg, #20834a 0%, #1a6b3a 100%);
     }
 
+    /* Side Sections */
+    .side-section {
+      background: white;
+      border-radius: 16px;
+      padding: 25px 20px;
+      max-width: 350px;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      border: 1px solid rgba(42, 122, 226, 0.08);
+      margin-top: 0;
+      height: fit-content;
+    }
+
+    .side-section h3 {
+      color: #333;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      margin-top: 0;
+      text-align: center;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 12px;
+    }
+
+    /* Product List Styles */
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .product-item {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 10px;
+      padding: 8px 15px;
+      text-decoration: none;
+      color: #333;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      height: 45px;
+      min-height: 45px;
+      max-height: 45px;
+      overflow: hidden;
+    }
+
+    .product-item:hover {
+      background: #e3f2fd;
+      border-color: #2a7ae2;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(42, 122, 226, 0.15);
+      text-decoration: none;
+      color: #333;
+    }
+
+    .product-name {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+      width: 100%;
+    }
+
+    .product-category {
+      font-size: 15px;
+      color: #666;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+      width: 100%;
+      margin-top: 0;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border: 1px dashed #ddd;
+    }
+
     form {
       margin: 0;
     }
@@ -324,92 +416,34 @@
       border-top: 1px solid #ddd;
     }
 
-    /* Development Warning Popup Styles */
-    .dev-popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    }
-
-    .dev-popup-content {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-      animation: devPopupAppear 0.3s ease-out;
-    }
-
-    @keyframes devPopupAppear {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .dev-popup-title {
-      color: #ff6b35;
-      margin-bottom: 20px;
-      font-size: 24px;
-      font-weight: 600;
-    }
-
-    .dev-popup-message {
-      color: #333;
-      margin-bottom: 20px;
-      line-height: 1.6;
-      font-size: 16px;
-    }
-
-    .dev-popup-warning {
-      background-color: #fff3cd;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 20px 0;
-      border-left: 4px solid #ff6b35;
-    }
-
-    .dev-popup-warning strong {
-      color: #ff6b35;
-      font-size: 18px;
-    }
-
-    .dev-popup-close {
-      background-color: #2a7ae2;
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .dev-popup-close:hover {
-      background-color: #1f5bbf;
-    }
-
-    .development-icon {
-      font-size: 48px;
-      margin-bottom: 15px;
-    }
-
     /* Media Queries for Responsive Design */
     
+    /* Desktop Layout (1025px and up) */
+    @media screen and (min-width: 1025px) {
+      .main-content {
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+      }
+      
+      .recently-viewed-section {
+        flex: 0 0 auto;
+        order: 1;
+        margin-top: 72px;
+      }
+      
+      .navigator-section {
+        flex: 0 0 auto;
+        order: 2;
+      }
+      
+      .most-viewed-section {
+        flex: 0 0 auto;
+        order: 3;
+        margin-top: 72px;
+      }
+    }
+
     /* iPad and tablet specific (768px - 1024px) */
     @media screen and (max-width: 1024px) and (min-width: 769px) {
       .nav-links {
@@ -420,6 +454,12 @@
         font-size: 18px;
       }
       
+      .main-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+      
       .navigator-title {
         font-size: 30px;
         margin-bottom: 15px;
@@ -428,6 +468,28 @@
       .main-actions {
         max-width: 450px;
         padding: 35px 25px;
+        margin: 10px auto 20px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      
+      .side-section {
+        max-width: 450px;
+        margin-top: 0;
+      }
+      
+      .action-buttons {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      
+      .action-button {
+        flex: 1 1 auto;
+        max-width: calc(50% - 7.5px);
+        min-width: 120px;
+        width: auto;
       }
       
       .search-container {
@@ -446,7 +508,7 @@
       }
     }
 
-    /* Mobile and small tablets (up to 1024px) */
+    /* General mobile navigation rules (up to 1024px) */
     @media screen and (max-width: 1024px) {
       .nav-links {
         display: none;
@@ -465,22 +527,101 @@
       }
 
       body {
-        padding: 100px 15px 30px;
+        padding: 100px 15px 70px;
+      }
+
+      .main-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .navigator-section {
+        order: 1;
+      }
+      
+      .recently-viewed-section {
+        order: 2;
+      }
+      
+      .most-viewed-section {
+        order: 3;
+      }
+
+      .side-section {
+        margin-top: 0;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    /* Mobile and small tablets (up to 768px) */
+    @media screen and (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+
+      .top-bar form {
+        display: none;
+      }
+
+      .top-bar {
+        padding: 0 20px;
+      }
+
+      body {
+        padding: 100px 15px 70px;
+      }
+
+      .main-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .navigator-section {
+        order: 1;
+      }
+      
+      .recently-viewed-section {
+        order: 2;
+      }
+      
+      .most-viewed-section {
+        order: 3;
       }
 
       .main-actions {
-        margin: 10px auto 30px;
+        margin: 10px auto 20px;
         padding: 30px 20px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .side-section {
+        margin-top: 0;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
       }
 
       .action-buttons {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        width: 100%;
+        gap: 15px;
       }
 
       .action-button {
         width: 100%;
-        max-width: 250px;
+        max-width: none;
+        min-width: auto;
+        flex: none;
       }
     }
 
@@ -493,26 +634,30 @@
       }
       
       .main-actions {
-        max-width: 400px;
-        margin: 10px auto 30px;
+        max-width: none;
+        margin: 10px auto 20px;
+        width: 100%;
+        box-sizing: border-box;
       }
       
       .search-container {
         flex-direction: column;
         width: 100%;
-        align-items: center;
+        align-items: stretch;
         gap: 15px;
       }
 
       .search-input {
         width: 100%;
-        max-width: 300px;
+        max-width: none;
         min-width: auto;
+        box-sizing: border-box;
       }
 
       .search-button {
         width: 100%;
-        max-width: 300px;
+        max-width: none;
+        box-sizing: border-box;
       }
     }
 
@@ -527,32 +672,67 @@
       }
 
       body {
-        padding: 90px 10px 20px;
+        padding: 90px 10px 70px;
         font-size: 14px;
       }
 
       .main-actions {
-        margin: 8px auto 20px;
+        margin: 8px auto 15px;
         padding: 25px 15px;
         border-radius: 16px;
         max-width: none;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .side-section {
+        padding: 20px 15px;
+        border-radius: 12px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .side-section h3 {
+        font-size: 18px;
+      }
+
+      .product-item {
+        padding: 12px;
+      }
+
+      .product-name {
+        font-size: 15px;
+      }
+
+      .product-category {
+        font-size: 13px;
       }
 
       .action-button {
         font-size: 15px;
         padding: 12px 24px;
+        width: 100%;
+        max-width: none;
+        min-width: auto;
+        box-sizing: border-box;
       }
 
       .search-input {
         font-size: 15px;
         padding: 10px 15px;
-        max-width: 280px;
+        width: 100%;
+        max-width: none;
+        min-width: auto;
+        box-sizing: border-box;
       }
 
       .search-button {
         font-size: 15px;
         padding: 10px 20px;
-        max-width: 280px;
+        width: 100%;
+        max-width: none;
+        min-width: auto;
+        box-sizing: border-box;
       }
 
       .navigator-title {
@@ -565,10 +745,8 @@
 <body>
 
   <div class="top-bar">
-    <!-- Logo on left -->
     <img src="{% static 'cheqr1.png' %}" alt="Foodcheqr Logo" class="logo" />
 
-    <!-- Desktop Navigation links -->
     <div class="nav-links">
       <a href="{% url 'guidelines' %}" class="plain-link">Guidelines</a>
       <a href="{% url 'resources' %}" class="plain-link">Resources</a>
@@ -578,21 +756,18 @@
       <a href="{% url 'donate' %}?q=example" class="plain-link">Donate</a>
     </div>
 
-    <!-- Hamburger Menu Button -->
     <div class="hamburger" onclick="toggleMobileMenu()">
       <span></span>
       <span></span>
       <span></span>
     </div>
     
-    <!-- Desktop Logout button -->
     <form method="POST" action="{% url 'logout' %}" style="margin-left: 20px;">
       {% csrf_token %}
       <button type="submit" class="logout-button">Logout</button>
     </form>
   </div>
 
-  <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="{% url 'guidelines' %}" class="plain-link">Guidelines</a>
     <a href="{% url 'resources' %}" class="plain-link">Resources</a>
@@ -606,86 +781,73 @@
     </form>
   </div>
 
-  <!-- Development Warning Popup -->
-  <div class="dev-popup-overlay" id="devPopupOverlay" onclick="hideDevPopup()">
-    <div class="dev-popup-content" onclick="event.stopPropagation()">
-      <div class="development-icon">⚠️</div>
-      <h2 class="dev-popup-title">Development Environment</h2>
-      <p class="dev-popup-message">
-        This application is currently under active development and testing.
-      </p>
-      <div class="dev-popup-warning">
-        <p><strong>Important Notice:</strong></p>
-        <p>All data and information displayed should be validated before use in production environments. Features may be incomplete or subject to change.</p>
+  <div class="main-content">
+    <div class="side-section recently-viewed-section">
+      <h3>Recently Viewed</h3>
+      <div class="product-list">
+        {% if recently_viewed %}
+          {% for product in recently_viewed %}
+            <a href="{% url 'product_detail' product.id %}" class="product-item">
+              <div class="product-name">{{ product.item_name }}</div>
+              <div class="product-category">{{ product.category }}</div>
+            </a>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">
+            No recently viewed items yet.<br>
+            Start exploring to see your history here!
+          </div>
+        {% endif %}
       </div>
-      <p class="dev-popup-message">
-        Please proceed with caution and report any issues you encounter.
-      </p>
-      <button class="dev-popup-close" onclick="hideDevPopup()">I Understand</button>
-    </div>
-  </div>
-
-  <!-- Fundraising Popup -->
-  <div class="dev-popup-overlay" id="fundraisingPopupOverlay" onclick="hideFundraisingPopup()">
-    <div class="dev-popup-content" onclick="event.stopPropagation()">
-      <div class="development-icon">💝</div>
-      <h2 class="dev-popup-title">Support Foodcheqr</h2>
-      <p class="dev-popup-message">
-        Your donations help us build digital tools to support the operational needs of food banks throughout the region.
-      </p>
-      <div class="dev-popup-warning">
-        <p><strong>Quarterly Fundraising Drive</strong></p>
-        <p>Every dollar helps us expand our services and reach more communities in need. Consider making a donation today!</p>
-      </div>
-      <p class="dev-popup-message">
-        <a href="{% url 'donate' %}" style="color: #2a7ae2; text-decoration: none; font-weight: bold;">Visit our donation page →</a>
-      </p>
-      <button class="dev-popup-close" onclick="hideFundraisingPopup()">Maybe Later</button>
-    </div>
-  </div>
-
-  <!-- Flowchart Construction Popup -->
-  <div class="dev-popup-overlay" id="flowchartPopupOverlay" onclick="hideFlowchartPopup()">
-    <div class="dev-popup-content" onclick="event.stopPropagation()">
-      <div class="development-icon">🚧</div>
-      <h2 class="dev-popup-title">Under Construction</h2>
-      <p class="dev-popup-message">
-        The Flowchart feature is currently being developed and will be available soon.
-      </p>
-      <div class="dev-popup-warning">
-        <p><strong>Coming Soon:</strong></p>
-        <p>We're working hard to bring you an interactive flowchart to guide you through food safety decisions!</p>
-      </div>
-      <p class="dev-popup-message">
-        In the meantime, please use the Categories or Search functionality.
-      </p>
-      <button class="dev-popup-close" onclick="hideFlowchartPopup()">Got It</button>
-    </div>
-  </div>
-
-  <!-- Main content with redesigned middle section -->
-  <h2 class="navigator-title">Shelf Life Navigator</h2>
-  <div class="main-actions">
-    <div class="action-buttons">
-      <a href="{% url 'category_select' %}" class="action-button">Categories</a>
-      <a href="#" class="action-button" onclick="showFlowchartPopup(); return false;">Flowchart</a>
     </div>
 
-    <div class="divider">
-      <div class="divider-text">OR</div>
-    </div>
-
-    <div class="search-section">
-      <form id="search-form" action="{% url 'search' %}" method="get">
-        <div class="search-container">
-          <input type="text" name="q" placeholder="Search food items..." class="search-input" />
-          <button type="submit" class="search-button">Search</button>
+    <div class="navigator-section">
+      <h2 class="navigator-title">Shelf Life Navigator</h2>
+      <div class="main-actions">
+        <div class="action-buttons">
+          <a href="{% url 'category_select' %}" class="action-button">Categories</a>
+          <!-- <a href="#" class="action-button" onclick="showFlowchartPopup(); return false;">Flowchart</a> -->
+           <!-- route flowchart click to coming_soon html -->
+           <a href="{% url 'coming_soon' %}" class="action-button">Flowchart</a>
         </div>
-      </form>
+
+        <div class="divider">
+          <div class="divider-text">OR</div>
+        </div>
+
+        <div class="search-section">
+          <form id="search-form" action="{% url 'search' %}" method="get">
+            <div class="search-container">
+              <input type="text" name="q" placeholder="Search food items..." class="search-input" />
+              <button type="submit" class="search-button">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-section most-viewed-section">
+      <h3>Most Viewed</h3>
+      <div class="product-list">
+        {% if most_viewed %}
+          {% for product in most_viewed|slice:":3" %}
+            <a href="{% url 'product_detail' product.id %}" class="product-item">
+              <div class="product-name">{{ product.item_name }}</div>
+              <div class="product-category">{{ product.category }}</div>
+            </a>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">
+            No popular items to display yet.<br>
+            Check back soon!
+          </div>
+        {% endif %}
+      </div>
     </div>
   </div>
 
-  <!-- add bottom bar -->
+
+  
   <div class="bottom-bar">
     <p>&copy; 2025 Foodcheqr - Designed for Food Banks</p>
   </div>
@@ -796,6 +958,7 @@
 
     // FLOWCHART CONSTRUCTION POPUP FUNCTIONS
     function showFlowchartPopup() {
+      console.log("Flowchart popup triggered");
       document.getElementById('flowchartPopupOverlay').style.display = 'flex';
     }
 
