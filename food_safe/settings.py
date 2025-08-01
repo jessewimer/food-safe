@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "users",
     "shelf_life",
+    "analytics",
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'analytics.middleware.TrackIPMiddleware',
 ]
 
 ROOT_URLCONF = "food_safe.urls"
