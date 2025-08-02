@@ -3,32 +3,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Foodcheqr{% endblock %}</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: sans-serif;
+            padding: 1rem;
             margin: 0;
-            padding: 2rem;
-            background: white;
-            color: #333;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            box-sizing: border-box;
         }
-        
-        /* Header with home button and line */
-        .header {
-            width: 100%;
-            max-width: 700px;
+       
+        /* Top-center button container with header line */
+        .top-center-buttons {
             display: flex;
             justify-content: center;
+            margin-bottom: 1rem;
+            width: 100%;
             padding-bottom: 1rem;
-            margin-bottom: 2rem;
             border-bottom: 1px solid #ddd;
         }
-        
-        .home-button {
+       
+        .top-center-buttons a {
             padding: 10px 18px;
             font-size: 16px;
             border-radius: 12px;
@@ -38,14 +39,27 @@
             text-align: center;
             transition: background-color 0.3s;
             width: 100px;
+            margin: 0 5px;
+        }
+       
+        .home-button {
             background-color: #007BFF;
             color: white;
         }
-        
+       
         .home-button:hover {
             background-color: #0056b3;
         }
-        
+       
+        .back-button {
+            background-color: #007BFF;
+            color: white;
+        }
+       
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+       
         /* Main content box */
         .content-box {
             max-width: 700px;
@@ -56,31 +70,39 @@
             text-align: left;
             flex-grow: 1;
             margin-bottom: 2rem;
+            margin-top: 1.5rem;
+            width: 100%;
+            box-sizing: border-box;
         }
-        
+       
         h1 {
             color: #2a7ae2;
             margin-bottom: 12px;
             font-weight: 600;
             text-align: center;
         }
-        
-        p {
+       
+        .content-box p {
             font-size: 19px;
             line-height: 1.7;
             margin-bottom: 25px;
         }
-        
+
+        /* General text styling */
+        p {
+            font-size: 14px;
+            text-align: center;
+        }
         ul, ol {
             font-size: 18px;
             line-height: 1.8;
             padding-left: 20px;
         }
-        
+       
         li {
             margin-bottom: 18px;
         }
-        
+       
         .signature {
             font-style: italic;
             color: #666;
@@ -88,35 +110,91 @@
             font-size: 16px;
             text-align: center;
         }
-        
+       
+        /* Content area */
+        .content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+     
         /* Footer with line */
         .footer {
             width: 100%;
-            max-width: 700px;
             padding-top: 1rem;
             border-top: 1px solid #ddd;
             text-align: center;
             font-size: 14px;
             color: #666;
+            margin-top: auto;
         }
-        
+
+        /* Mobile-specific adjustments */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            /* Keep top navigation buttons on same line */
+            .top-center-buttons {
+                flex-direction: row;
+                gap: 0.5rem;
+                margin-bottom: 0.5rem;
+                padding-bottom: 0.5rem;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .top-center-buttons a {
+                width: 120px;
+                padding: 10px 15px;
+                font-size: 16px;
+                margin: 0;
+            }
+            
+
+            .content-box {
+                margin-top: 0.5rem;
+                padding: 20px 15px;
+            }
+        }
+
+        /* Extra small screens */
+        @media screen and (max-width: 480px) {
+            /* Force header buttons to stay side by side and get smaller */
+            .top-center-buttons a {
+                width: 90px;
+                padding: 8px 10px;
+                font-size: 14px;
+                margin: 0 3px;
+            }
+        }
+       
     </style>
 </head>
 <body>
-    <div class="header">
+    <div class="top-center-buttons">
+        {% block header_buttons %}
         <a href="{% url 'landing' %}" class="home-button">Home</a>
+        {% endblock %}
     </div>
-    
-    <div class="content-box">
-        {% block content %}{% endblock %}
+   
+    <div class="content">
+        <div class="content-box">
+            {% block content %}{% endblock %}
+        </div>
     </div>
-    
+   
     <div class="footer">
         {% block footer %}
         <p>&copy; 2025 Foodcheqr - Designed for Food Banks</p>
         {% endblock %}
     </div>
-    
+   
     {% block extra_js %}
     <!-- Custom JavaScript can be added here in child templates -->
     {% endblock %}
