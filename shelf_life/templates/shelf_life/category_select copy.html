@@ -1,6 +1,7 @@
 {% extends 'flowchart_base.html' %}
 {% load static %}
 {% block title %}Categories - Foodcheqr{% endblock %}
+
 {% block content %}
     <h2>Categories</h2>
     <a href="{% url 'baby_food_list' %}" class="button">Baby Food</a>
@@ -10,6 +11,7 @@
     <!-- <a href="{% url 'frozen_categories' %}" class="button">Frozen</a> -->
     <a href="javascript:void(0)" class="button" onclick="showConstructionPopup('default')">Frozen</a>
 {% endblock %}
+
 {% block extra_js %}
 <script src="{% static 'js/construction-popup.js' %}"></script>
 {% endblock %}

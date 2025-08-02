@@ -60,8 +60,8 @@
        
         /* Page titles */
         h2 {
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
             width: 100%;
             text-align: center;
         }
@@ -131,21 +131,19 @@
                 padding: 0.5rem;
             }
             
-            /* Keep top navigation buttons on same line even on mobile */
+            /* Top navigation buttons */
             .top-center-buttons {
-                flex-direction: row;
+                flex-direction: column;
                 gap: 0.5rem;
                 margin-bottom: 0.5rem;
                 padding-bottom: 0.5rem;
                 align-items: center;
-                justify-content: center;
-                flex-wrap: wrap;
             }
             
             .top-center-buttons a {
-                width: 120px;
-                padding: 10px 15px;
-                font-size: 16px;
+                width: 200px;
+                padding: 12px 20px;
+                font-size: 18px;
                 margin: 0;
             }
             
@@ -174,20 +172,17 @@
 
         /* Extra small screens */
         @media screen and (max-width: 480px) {
-            /* Force header buttons to stay side by side */
-            .top-center-buttons a {
-                width: 90px;
-                padding: 8px 10px;
-                font-size: 14px;
-                margin: 0 3px;
-            }
-            
             .button {
                 width: 260px;
                 min-width: 260px;
                 max-width: 260px;
                 font-size: 18px;
                 padding: 16px 12px;
+            }
+            
+            .top-center-buttons a {
+                width: 180px;
+                font-size: 16px;
             }
         }
        
