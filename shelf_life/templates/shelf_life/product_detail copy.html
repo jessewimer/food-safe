@@ -18,6 +18,23 @@
             position: relative;
             box-sizing: border-box;
         }
+
+        /* Mobile-specific adjustments */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            .top-center-buttons {
+                margin-bottom: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+            
+            .footer {
+                padding-top: 0.5rem;
+                font-size: 13px;
+            }
+        }
        
         /* Top-center button container with header line */
         .top-center-buttons {
@@ -39,7 +56,7 @@
             text-align: center;
             transition: background-color 0.3s;
             width: 100px;
-            margin: 0 5px;
+            margin: 0 5px; /* Add spacing between multiple buttons */
         }
        
         .home-button {
@@ -82,8 +99,7 @@
 
         /* Product-specific styles */
         .product-header {
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 2rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid #e0e0e0;
             width: 100%;
@@ -95,7 +111,7 @@
             font-size: 1.6rem;
             font-weight: 500;
             color: #666;
-            padding-top: 1rem;
+            font-style: italic;
         }
 
         .details-card {
@@ -108,7 +124,6 @@
             min-width: 320px;
             width: 100%;
             max-width: 500px;
-            box-sizing: border-box;
         }
 
         .category-header {
@@ -204,33 +219,10 @@
             font-size: 0.9rem;
         }
 
-        /* Mobile-specific adjustments */
-        @media screen and (max-width: 768px) {
-            body {
-                padding: 0.5rem;
-            }
-            
-            /* Keep top navigation buttons on same line */
-            .top-center-buttons {
-                flex-direction: row;
-                gap: 0.5rem;
-                margin-bottom: 0.5rem;
-                padding-bottom: 0.5rem;
-                align-items: center;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            .top-center-buttons a {
-                width: 120px;
-                padding: 10px 15px;
-                font-size: 16px;
-                margin: 0;
-            }
-            
-            .footer {
-                padding-top: 0.5rem;
-                font-size: 13px;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-header {
+                min-width: 280px;
             }
 
             .item-name {
@@ -239,6 +231,11 @@
 
             .category-header {
                 font-size: 1.2rem;
+            }
+
+            .details-card {
+                padding: 1.5rem;
+                min-width: 280px;
             }
 
             .detail-row {
@@ -258,46 +255,9 @@
             }
         }
 
-        /* Small screens - start responsive card sizing */
-        @media screen and (max-width: 500px) {
-            /* Make cards responsive to screen width */
+        @media (max-width: 480px) {
             .product-header {
-                min-width: calc(100vw - 2rem);
-                max-width: calc(100vw - 2rem);
-                width: calc(100vw - 2rem);
-            }
-
-            .details-card {
-                min-width: calc(100vw - 2rem);
-                max-width: calc(100vw - 2rem);
-                width: calc(100vw - 2rem);
-                padding: 1.5rem;
-            }
-        }
-
-        /* Extra small screens */
-        @media screen and (max-width: 480px) {
-            /* Force header buttons to stay side by side and get smaller */
-            .top-center-buttons a {
-                width: 90px;
-                padding: 8px 10px;
-                font-size: 14px;
-                margin: 0 3px;
-            }
-
-            /* Make cards even more responsive */
-            .product-header {
-                min-width: calc(100vw - 1rem);
-                max-width: calc(100vw - 1rem);
-                width: calc(100vw - 1rem);
-            }
-
-            .details-card {
-                min-width: calc(100vw - 1rem);
-                max-width: calc(100vw - 1rem);
-                width: calc(100vw - 1rem);
-                padding: 1rem;
-                border-radius: 8px;
+                min-width: 260px;
             }
 
             .item-name {
@@ -308,6 +268,12 @@
                 font-size: 1.1rem;
             }
 
+            .details-card {
+                padding: 1rem;
+                border-radius: 8px;
+                min-width: 260px;
+            }
+
             .days-number {
                 font-size: 1.1rem;
             }
@@ -316,6 +282,7 @@
 </head>
 <body>
     <div class="top-center-buttons">
+        <!-- Option 1: Always use browser back button -->
         <a href="javascript:history.back()" class="back-button">← Back</a>
         <a href="{% url 'landing' %}" class="home-button">Home</a>
     </div>
@@ -326,6 +293,7 @@
           </div>
 
         {% for category, data in shelf_lives.items %}
+
           <div class="details-card">
             <div class="category-header">{{ category }}</div>
             
@@ -353,6 +321,10 @@
             {% endif %}
           </div>
         {% empty %}
+          <!-- <div class="product-header">
+            <div class="item-name">{{ product.item_name }}</div>
+          </div> -->
+          
           <div class="no-data-card">
             <p>No shelf life data available for this product.</p>
             <small>Please check back later or contact support if this seems incorrect.</small>
