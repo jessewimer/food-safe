@@ -35,14 +35,6 @@ class Product(models.Model):
     def __str__(self):
         return self.item_name
 
-class ProductView(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='views')
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-    ip_address = models.GenericIPAddressField(null=True, blank=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ['-timestamp']
 
 class Comment(models.Model):
     author_name = models.CharField(max_length=100, blank=True)

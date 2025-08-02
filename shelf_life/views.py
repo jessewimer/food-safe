@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from shelf_life.models import Product, ProductView
+from shelf_life.models import Product
+from analytics.models import ProductView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.http import JsonResponse
@@ -144,7 +145,7 @@ def product_detail(request, pk):
     ip = get_client_ip(request)
     user = request.user if request.user.is_authenticated else None
     ProductView.objects.create(product=product, user=user, ip_address=ip, timestamp=now())
-    print(f"Product viewed: {product.item_name} by {user if user else 'Anonymous'} from IP {ip}")
+    # print(f"Product viewed: {product.item_name} by {user if user else 'Anonymous'} from IP {ip}")
 
     # --- Shelf life data logic ---
     def get_category_data(prefix, label):
