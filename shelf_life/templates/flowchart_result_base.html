@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>{% block title %}Foodcheqr{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: sans-serif;
@@ -36,7 +37,7 @@
             text-align: center;
             transition: background-color 0.3s;
             width: 100px;
-            margin: 0 5px; /* Add spacing between multiple buttons */
+            margin: 0 5px;
         }
        
         .home-button {
@@ -59,8 +60,8 @@
        
         /* Page titles */
         h2 {
-            margin-top: 0;
-            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
             width: 100%;
             text-align: center;
         }
@@ -92,6 +93,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             transition: background-color 0.3s;
+            box-sizing: border-box;
         }
        
         .result-button:hover {
@@ -100,7 +102,7 @@
        
         /* General text styling */
         p {
-            font-size: 18px;
+            font-size: 14px;
             text-align: center;
         }
        
@@ -130,24 +132,68 @@
                 padding: 0.5rem;
             }
             
+            /* Keep top navigation buttons on same line */
             .top-center-buttons {
+                flex-direction: row;
+                gap: 0.5rem;
                 margin-bottom: 0.5rem;
                 padding-bottom: 0.5rem;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .top-center-buttons a {
+                width: 120px;
+                padding: 10px 15px;
+                font-size: 16px;
+                margin: 0;
+            }
+            
+            /* Make result buttons larger on mobile */
+            .result-button {
+                width: 280px;
+                padding: 12px 16px;
+                font-size: 18px;
+            }
+
+            ul {
+                width: 280px;
+            }
+            
+            /* Adjust heading for mobile */
+            h2 {
+                font-size: 24px;
+                margin-bottom: 1.5rem;
             }
             
             .footer {
                 padding-top: 0.5rem;
                 font-size: 13px;
             }
+        }
 
+        /* Extra small screens */
+        @media screen and (max-width: 480px) {
+            /* Force header buttons to stay side by side and get smaller */
+            .top-center-buttons a {
+                width: 90px;
+                padding: 8px 10px;
+                font-size: 14px;
+                margin: 0 3px;
+            }
+            
             .result-button {
-                width: 280px;
+                width: 260px;
+                font-size: 17px;
+                padding: 11px 14px;
             }
 
             ul {
-                width: 280px;
+                width: 260px;
             }
         }
+       
     </style>
 </head>
 <body>
