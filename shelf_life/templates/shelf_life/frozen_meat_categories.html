@@ -1,0 +1,13 @@
+{% extends "flowchart_base.html" %}
+{% load static %}
+{% block title %}Frozen Meat Categories{% endblock %}
+{% block header_buttons %}
+    <a href="{% url 'frozen_categories' %}" class="back-button">← Back</a>
+    <a href="{% url 'landing' %}" class="home-button">Home</a>
+{% endblock %}
+{% block content %}
+    <h2>Frozen Meat, Poultry & Seafood</h2>
+    {% for category in categories %}
+        <a href="{% url 'frozen_meat_category_detail' meat_subcategory=category.slug %}" class="button">{{ category.name }}</a>
+    {% endfor %}
+{% endblock %}

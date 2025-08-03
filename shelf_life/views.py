@@ -10,6 +10,7 @@ from .forms import CommentForm
 from datetime import date, timedelta
 from django.utils.timezone import now
 from django.db.models import Count, Max
+from django.http import Http404
 
 def landing_redirect(request):
     return redirect('login')
@@ -427,6 +428,250 @@ def refrigerated_categories(request):
 
 @login_required
 def frozen_categories(request):
-    # Empty for now
-    categories = []
-    return render(request, "shelf_life/frozen_categories.html", {"categories": categories})
+    categories = [
+        {'name': 'Prepared Foods & Meals', 'slug': 'prepared-foods'},
+        {'name': 'Meat, Poultry & Seafood', 'slug': 'meat-poultry-seafood'},
+        {'name': 'Fruits & Vegetables', 'slug': 'fruits-vegetables'},
+        {'name': 'Breads, Desserts & Other', 'slug': 'breads-desserts'},
+    ]
+    return render(request, "shelf_life/frozen.html", {"categories": categories})
+
+@login_required
+def frozen_category_detail(request, subcategory):
+    # Define the frozen food item names for each subcategory
+    frozen_categories = {
+        'prepared-foods': {
+            'display_name': 'Prepared Foods & Meals',
+            'item_names': [
+                'Dinners: pies, casseroles, shrimp, ham, pork or sausage',
+                'Dinners: beef, turkey, chicken or fish',
+                'Soups and stews, vegetable or meat based'
+            ]
+        },
+        'fruits-vegetables': {
+            'display_name': 'Fruits & Vegetables',
+            'item_names': [
+                'Fruit, frozen',
+                'Vegetables, cut/diced',
+                'Potato products; fries, hashbrowns'
+            ]
+        },
+        'breads-desserts': {
+            'display_name': 'Breads, Desserts & Other',
+            'item_names': [
+                'Bread, Bagels',
+                'Desserts, frozen baked goods',
+                'Desserts, frozen cream pies',
+                'Dough, bread',
+                'Dough, cookie',
+                'Eggs; pasteurized in cartons',
+                'Ice Pops',
+                'Ice Cream',
+                'Juice concentrate',
+                'Waffles, pancakes',
+                'Whipped topping, non-dairy tub'
+            ]
+        }
+    }
+    
+    # Get the category data or return 404 if not found
+    if subcategory not in frozen_categories:
+        raise Http404("Category not found")
+    
+    category_data = frozen_categories[subcategory]
+    item_names = category_data['item_names']
+    
+    # Query database for items with these names
+    items = Product.objects.filter(item_name__in=item_names).order_by('item_name')
+    
+    context = {
+        'subcategory': subcategory,
+        'display_name': category_data['display_name'],
+        'items': items
+    }
+    
+    return render(request, 'shelf_life/frozen_category_detail.html', context)
+# def frozen_category_detail(request, subcategory):
+#     # Define the frozen food items for each subcategory using exact items from the document
+#     frozen_categories = {
+        
+#         'prepared-foods': {
+#             'display_name': 'Prepared Foods & Meals',
+#             'items': [
+#                 'Dinners: pies, casseroles, shrimp, ham, pork or sausage',
+#                 'Dinners: beef, turkey, chicken or fish',
+#                 'Soups and stews, vegetable or meat based'
+#             ]
+#         },
+#         'fruits-vegetables': {
+#             'display_name': 'Fruits & Vegetables',
+#             'items': [
+#                 'Fruit, frozen',
+#                 'Vegetables, cut/diced',
+#                 'Potato products; fries, hashbrowns'
+#             ]
+#         },
+#         'breads-desserts': {
+#             'display_name': 'Breads, Desserts & Other',
+#             'items': [
+#                 'Bread, Bagels',
+#                 'Desserts, frozen baked goods',
+#                 'Desserts, frozen cream pies',
+#                 'Dough, bread',
+#                 'Dough, cookie',
+#                 'Eggs; pasteurized in cartons',
+#                 'Ice Pops',
+#                 'Ice Cream',
+#                 'Juice concentrate',
+#                 'Waffles, pancakes',
+#                 'Whipped topping, non-dairy tub'
+#             ]
+#         }
+#     }
+    
+#     # Get the category data or return 404 if not found
+#     if subcategory not in frozen_categories:
+#         raise Http404("Category not found")
+    
+#     category_data = frozen_categories[subcategory]
+    
+#     context = {
+#         'subcategory': subcategory,
+#         'display_name': category_data['display_name'],
+#         'items': category_data['items']
+#     }
+#     # print items for debugging
+#     print(f"Frozen category detail for {subcategory}: {category_data['items']}")
+#     return render(request, 'shelf_life/frozen_category_detail.html', context)
+
+@login_required
+def frozen_meat_categories(request):
+    meat_categories = [
+        {'name': 'Poultry', 'slug': 'poultry'},
+        {'name': 'Beef, Pork & Lamb', 'slug': 'beef-pork-lamb'},
+        {'name': 'Fish & Seafood', 'slug': 'fish-seafood'},
+        {'name': 'Processed Meats', 'slug': 'processed-meats'}
+    ]
+    return render(request, "shelf_life/frozen_meat_categories.html", {"categories": meat_categories})
+
+@login_required
+def frozen_meat_category_detail(request, meat_subcategory):
+    meat_categories = {
+        'poultry': {
+            'display_name': 'Poultry',
+            'item_names': [
+                'Chicken, pieces',
+                'Chicken, whole', 
+                'Chicken, nuggets/patties'
+            ]
+        },
+        'beef-pork-lamb': {
+            'display_name': 'Beef, Pork & Lamb',
+            'item_names': [
+                'Meat, ground beef, pork, poultry',
+                'Meat, beef, veal, lamb, pork; chops, roasts, steaks'
+            ]
+        },
+        'fish-seafood': {
+            'display_name': 'Fish & Seafood',
+            'item_names': [
+                'Fish, breaded',
+                'Fish, finned, fatty; salmon, tuna',
+                'Fish, finned, lean; cod, halibut',
+                'Fish, finned, lean; pollock, perch, trout',
+                'Shellfish; crab, lobster',
+                'Shellfish; shucked clams, oysters, mussels, scallops',
+                'Shellfish; shrimp'
+            ]
+        },
+        'processed-meats': {
+            'display_name': 'Processed Meats',
+            'item_names': [
+                'Bacon',
+                'Ham, fresh, uncured, cooked',
+                'Ham, fresh, uncured, uncooked',
+                'Ham, cooked, store wrapped, vacuum packed',
+                'Hot dogs',
+                'Luncheon meat',
+                'Prosciutto, Parma or Serrano ham, dry Italian salami',
+                'Sausage, raw or cooked',
+                'Soy meat substitutes'
+            ]
+        }
+    }
+    
+    if meat_subcategory not in meat_categories:
+        raise Http404("Meat category not found")
+    
+    category_data = meat_categories[meat_subcategory]
+    item_names = category_data['item_names']
+    
+    # Query database for items with these names
+    # Replace 'YourItemModel' with your actual model name
+    items = Product.objects.filter(item_name__in=item_names).order_by('item_name')
+    
+    context = {
+        'subcategory': meat_subcategory,
+        'display_name': category_data['display_name'],
+        'items': items
+    }
+    
+    return render(request, 'shelf_life/frozen_meat_category_detail.html', context)
+
+# def frozen_meat_category_detail(request, meat_subcategory):
+#     meat_categories = {
+#         'poultry': {
+#             'display_name': 'Poultry',
+#             'items': [
+#                 'Chicken, pieces',
+#                 'Chicken, whole', 
+#                 'Chicken, nuggets/patties'
+#             ]
+#         },
+#         'beef-pork-lamb': {
+#             'display_name': 'Beef, Pork & Lamb',
+#             'items': [
+#                 'Meat, ground beef, pork, poultry',
+#                 'Meat, beef, veal, lamb, pork; chops, roasts, steaks'
+#             ]
+#         },
+#         'fish-seafood': {
+#             'display_name': 'Fish & Seafood',
+#             'items': [
+#                 'Fish, breaded',
+#                 'Fish, finned, fatty; salmon, tuna',
+#                 'Fish, finned, lean; cod, halibut',
+#                 'Fish, finned, lean; pollock, perch, trout',
+#                 'Shellfish; crab, lobster',
+#                 'Shellfish; shucked clams, oysters, mussels, scallops',
+#                 'Shellfish; shrimp'
+#             ]
+#         },
+#         'processed-meats': {
+#             'display_name': 'Processed Meats',
+#             'items': [
+#                 'Bacon',
+#                 'Ham, fresh, uncured, cooked',
+#                 'Ham, fresh, uncured, uncooked',
+#                 'Ham, cooked, store wrapped, vacuum packed',
+#                 'Hot dogs',
+#                 'Luncheon meat',
+#                 'Prosciutto, Parma or Serrano ham, dry Italian salami',
+#                 'Sausage, raw or cooked',
+#                 'Soy meat substitutes'
+#             ]
+#         }
+#     }
+    
+#     if meat_subcategory not in meat_categories:
+#         raise Http404("Meat category not found")
+    
+#     category_data = meat_categories[meat_subcategory]
+    
+#     context = {
+#         'subcategory': meat_subcategory,
+#         'display_name': category_data['display_name'],
+#         'items': category_data['items']
+#     }
+    
+#     return render(request, 'shelf_life/frozen_meat_category_detail.html', context)

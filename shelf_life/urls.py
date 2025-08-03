@@ -32,7 +32,11 @@ urlpatterns = [
     path('categories/shelf-stable/<str:subcategory>/', views.shelf_stable_detail, name='shelf_stable_detail'),
 
     path('categories/refrigerated/', views.refrigerated_categories, name='refrigerated_categories'),
-    path('categories/frozen/', views.frozen_categories, name='frozen_categories'),
-
     
+    # frozen categories
+    path('categories/frozen/meat-poultry-seafood/', views.frozen_meat_categories, name='frozen_meat_categories'),
+    path('categories/frozen/meat-poultry-seafood/<str:meat_subcategory>/', views.frozen_meat_category_detail, name='frozen_meat_category_detail'),
+    path('categories/frozen/', views.frozen_categories, name='frozen_categories'),
+    path('categories/frozen/<str:subcategory>/', views.frozen_category_detail, name='frozen_category_detail'),
+
 ]

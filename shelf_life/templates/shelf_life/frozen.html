@@ -1,0 +1,17 @@
+{% extends "flowchart_base.html" %}
+{% load static %}
+{% block title %}Frozen Categories{% endblock %}
+{% block header_buttons %}
+    <a href="{% url 'category_select' %}" class="back-button">← Back</a>
+    <a href="{% url 'landing' %}" class="home-button">Home</a>
+{% endblock %}
+{% block content %}
+    <h2>Frozen Categories</h2>
+    {% for category in categories %}
+        {% if category.slug == 'meat-poultry-seafood' %}
+            <a href="{% url 'frozen_meat_categories' %}" class="button">{{ category.name }}</a>
+        {% else %}
+            <a href="{% url 'frozen_category_detail' subcategory=category.slug %}" class="button">{{ category.name }}</a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
