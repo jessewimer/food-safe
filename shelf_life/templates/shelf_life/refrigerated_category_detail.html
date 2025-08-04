@@ -1,0 +1,22 @@
+{% extends 'flowchart_result_base.html' %}
+{% block title %}{{ display_name|default:"Category" }} Items - Foodcheqr{% endblock %}
+{% block header_buttons %}
+<a href="{% url 'refrigerated_intermediate' category=category %}" class="back-button">← Back</a>
+<a href="{% url 'landing' %}" class="home-button">Home</a>
+{% endblock %}
+{% block content %}
+    <h2>{{ display_name|default:"Unknown Category" }}</h2>
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>
+                    <a href="{% url 'product_detail' item.id %}?from={{ subcategory|slugify }}" class="result-button">
+                        {{ item.item_name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items found in this category.</p>
+    {% endif %}
+{% endblock %}

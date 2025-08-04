@@ -1,0 +1,13 @@
+{% extends "flowchart_base.html" %}
+{% load static %}
+{% block title %}{{ display_name }} - Foodcheqr{% endblock %}
+{% block header_buttons %}
+    <a href="{% url 'refrigerated_categories' %}" class="back-button">← Back</a>
+    <a href="{% url 'landing' %}" class="home-button">Home</a>
+{% endblock %}
+{% block content %}
+    <h2>{{ display_name }}</h2>
+    {% for subcategory in subcategories %}
+        <a href="{% url 'refrigerated_category_detail' category=category subcategory=subcategory.slug %}" class="button">{{ subcategory.name }}</a>
+    {% endfor %}
+{% endblock %}

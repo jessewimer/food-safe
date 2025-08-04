@@ -427,6 +427,305 @@ def refrigerated_categories(request):
 
 
 @login_required
+def refrigerated_intermediate(request, category):
+    # Define subcategories for each main category
+    category_subcategories = {
+        'dairy-cooler': {
+            'display_name': 'Dairy and Cooler Items',
+            'subcategories': [
+                {'name': 'Dairy Products', 'slug': 'dairy-products'},
+                {'name': 'Eggs & Egg Products', 'slug': 'eggs'},
+                {'name': 'Fresh Beverages', 'slug': 'beverages'},
+                {'name': 'Fresh Dough & Baked Goods', 'slug': 'dough-baked'},
+                {'name': 'Condiments & Sauces', 'slug': 'condiments-sauces'}
+            ]
+        },
+        'cut-produce': {
+            'display_name': 'Cut Produce',
+            'subcategories': [
+                {'name': 'Cut Fruits', 'slug': 'cut-fruits'},
+                {'name': 'Cut Vegetables', 'slug': 'cut-vegetables'},
+                {'name': 'Leafy Greens & Herbs', 'slug': 'leafy-greens'},
+                {'name': 'Root Vegetables', 'slug': 'root-vegetables'}
+            ]
+        },
+        'meats': {
+            'display_name': 'Meats',
+            'subcategories': [
+                {'name': 'Fresh Fish & Seafood', 'slug': 'fish-seafood'},
+                {'name': 'Raw Meats', 'slug': 'raw-meats'},
+                {'name': 'Processed Meats', 'slug': 'processed-meats'},
+                {'name': 'Wild Game', 'slug': 'wild-game'}
+            ]
+        },
+        'prepared-foods': {
+            'display_name': 'Prepared Foods & Deli Items',
+            'subcategories': [
+                {'name': 'Deli Meats & Prepared Proteins', 'slug': 'deli-meats'},
+                {'name': 'Fresh Salads & Sides', 'slug': 'salads-sides'},
+                {'name': 'Soups & Main Dishes', 'slug': 'soups-mains'},
+                {'name': 'Fresh Sauces & Dips', 'slug': 'fresh-sauces'}
+            ]
+        }
+    }
+    
+    if category not in category_subcategories:
+        raise Http404("Category not found")
+    
+    category_data = category_subcategories[category]
+    
+    context = {
+        'category': category,
+        'display_name': category_data['display_name'],
+        'subcategories': category_data['subcategories']
+    }
+    
+    return render(request, "shelf_life/refrigerated_intermediate.html", context)
+
+
+def refrigerated_category_detail(request, category, subcategory):
+    # Define items for each category/subcategory combination
+    category_items = {
+        'dairy-cooler': {
+            'dairy-products': {
+                'display_name': 'Dairy Products',
+                'item_names': [
+                    'Butter',
+                    'Buttermilk',
+                    'Cheese trays',
+                    'Cheese, Cottage',
+                    'Cheese, Cream',
+                    'Cheese, Deli sliced',
+                    'Cheese, hard',
+                    'Cheese, soft',
+                    'Cheese, processed sliced, shredded, string',
+                    'Cheese, ricotta',
+                    'Cream, Half & Half',
+                    'Cream, Heavy',
+                    'Cream, Light',
+                    'Margarine',
+                    'Milk',
+                    'Sour cream',
+                    'Whipped Cream, aerosol',
+                    'Whipped topping, aerosol',
+                    'Whipped topping, non-dairy tub',
+                    'Yogurt; dairy-based',
+                    'Yogurt; plant-based',
+                    'Yogurt; drinks, pouches'
+                ]
+            },
+            'eggs': {
+                'display_name': 'Eggs & Egg Products',
+                'item_names': [
+                    'Egg Nog',
+                    'Eggs, hardboiled',
+                    'Eggs, in shell',
+                    'Eggs, pasteurized carton egg substitute',
+                    'Eggs, pasteurized carton real eggs, unopened',
+                    'Eggs, whites or yolks'
+                ]
+            },
+            'beverages': {
+                'display_name': 'Fresh Beverages',
+                'item_names': [
+                    'Beverage; Alternative (soy, rice, nut, oat)',
+                    'Coffee creamer, dairy',
+                    'Juice, purchased refrigerated'
+                ]
+            },
+            'dough-baked': {
+                'display_name': 'Fresh Dough & Baked Goods',
+                'item_names': [
+                    'Crust, pie or pizza ready to bake',
+                    'Dough, biscuit',
+                    'Dough, bread or pizza',
+                    'Dough, cookie',
+                    'Pasta, fresh'
+                ]
+            },
+            'condiments-sauces': {
+                'display_name': 'Condiments & Sauces',
+                'item_names': [
+                    'Dips, made with dairy, mayo, sour cream etc.',
+                    'Hummus',
+                    'Pesto, jar/tub',
+                    'Pico de gallo',
+                    'Pudding, purchased refrigerated',
+                    'Salad dressing, refrigerated',
+                    'Salsa, fresh',
+                    'Sauces, fresh – pesto, alfredo',
+                    'Tofu'
+                ]
+            }
+        },
+        'cut-produce': {
+            'cut-fruits': {
+                'display_name': 'Cut Fruits',
+                'item_names': [
+                    'Apples, wedged',
+                    'Berries, blueberries, raspberries, blackberries',
+                    'Citrus, segmented',
+                    'Grapes',
+                    'Kiwi, sliced',
+                    'Mango, cubed sliced',
+                    'Melon, cubed, sliced',
+                    'Peaches, sliced',
+                    'Pears, sliced',
+                    'Pineapple, chunk, diced, sliced',
+                    'Pomegranate, arils',
+                    'Strawberries, sliced'
+                ]
+            },
+            'cut-vegetables': {
+                'display_name': 'Cut Vegetables',
+                'item_names': [
+                    'Broccoli, florets, stems',
+                    'Cabbage, shredded',
+                    'Cauliflower, florets',
+                    'Celery, sticks',
+                    'Cucumbers, sliced',
+                    'Jicama, sticks',
+                    'Mushrooms, sliced',
+                    'Onions; sweet, red, yellow, pearl',
+                    'Peppers, diced, sliced',
+                    'Squash, cubed, sliced',
+                    'Tomatoes, diced',
+                    'Zucchini, cubed, sliced'
+                ]
+            },
+            'leafy-greens': {
+                'display_name': 'Leafy Greens & Herbs',
+                'item_names': [
+                    'Lettuce, whole heads',
+                    'Lettuce salads, whole leaves, small leaf mixes',
+                    'Salad greens, mixed greens, spinach leaves',
+                    'Spinach, leaves',
+                    'Sprouts'
+                ]
+            },
+            'root-vegetables': {
+                'display_name': 'Root Vegetables',
+                'item_names': [
+                    'Carrots, baby',
+                    'Carrots, sticks',
+                    'Garlic, peeled',
+                    'Potatoes, peeled',
+                    'Root mixtures'
+                ]
+            }
+        },
+        'meats': {
+            'fish-seafood': {
+                'display_name': 'Fresh Fish & Seafood',
+                'item_names': [
+                    'Fish, finned, fatty; salmon, tuna',
+                    'Fish, finned, lean; cod, halibut',
+                    'Fish, finned, lean; pollock, perch, trout',
+                    'Shellfish, shrimp; cooked (cocktail shrimp)',
+                    'Shellfish, shrimp; raw',
+                    'Crab, canned',
+                    'Crab, in the shell; whole, legs, claws',
+                    'Shellfish, shucked; oysters, clams, mussels',
+                    'Lobster Tails, raw',
+                    'Scallops, raw'
+                ]
+            },
+            'raw-meats': {
+                'display_name': 'Raw Meats',
+                'item_names': [
+                    'Beef Roasts',
+                    'Beef Steaks',
+                    'Pork Roasts',
+                    'Pork Chops',
+                    'Lamb Roasts',
+                    'Lamb steaks/Chops',
+                    'Poultry: Chicken or Turkey, whole',
+                    'Ground Meats (beef, pork, lamb, or poultry)'
+                ]
+            },
+            'processed-meats': {
+                'display_name': 'Processed Meats',
+                'item_names': [
+                    'Bacon, unopened',
+                    'Bacon, deli or butcher block',
+                    'Chicken, fried, deli',
+                    'Ham, unopened',
+                    'Hot Dogs, unopened',
+                    'Luncheon Meats, deli sliced',
+                    'Luncheon Meats, unopened commercial package',
+                    'Pepperoni, salami',
+                    'Pouch or container, cooked; beef, chicken, pork',
+                    'Sausage, raw',
+                    'Sausage, smokes links or patties'
+                ]
+            },
+            'wild-game': {
+                'display_name': 'Wild Game',
+                'item_names': [
+                    'Venison, Elk',
+                    'Rabbit, Squirrel',
+                    'Wild duck, pheasant, goose (whole)'
+                ]
+            }
+        },
+        'prepared-foods': {
+            'deli-meats': {
+                'display_name': 'Deli Meats & Prepared Proteins',
+                'item_names': [
+                    'Chicken, Roasted or Fried',
+                    'Deli Meat, retail packaged'
+                ]
+            },
+            'salads-sides': {
+                'display_name': 'Fresh Salads & Sides',
+                'item_names': [
+                    'Salads, prepared (macaroni, egg, potato, chicken, tuna, etc.)',
+                    'Side dishes, cooked vegetables',
+                    'Side dishes, potato-based (not salad)',
+                    'Side dishes, rice'
+                ]
+            },
+            'soups-mains': {
+                'display_name': 'Soups & Main Dishes',
+                'item_names': [
+                    'Main dishes, meals',
+                    'Meats in gravy or broth (including meat pies)',
+                    'Soups, Stews'
+                ]
+            },
+            'fresh-sauces': {
+                'display_name': 'Fresh Sauces & Dips',
+                'item_names': [
+                    'Guacamole',
+                    'Hummus, Pasteurized',
+                    'Hummus, with Preservatives',
+                    'Hummus, traditional, no preservatives, not pasteurized',
+                    'Sandwiches, Grab & Go, Retail packaged',
+                    'Sauces, Egg-Based (Hollandaise, etc.)'
+                ]
+            }
+        }
+    }
+    
+    if category not in category_items or subcategory not in category_items[category]:
+        raise Http404("Category or subcategory not found")
+    
+    item_data = category_items[category][subcategory]
+    item_names = item_data['item_names']
+    
+    # Query database for items with these names
+    items = Product.objects.filter(item_name__in=item_names).order_by('item_name')
+    
+    context = {
+        'category': category,
+        'subcategory': subcategory,
+        'display_name': item_data['display_name'],
+        'items': items
+    }
+    
+    return render(request, 'shelf_life/refrigerated_category_detail.html', context)
+
+@login_required
 def frozen_categories(request):
     categories = [
         {'name': 'Prepared Foods & Meals', 'slug': 'prepared-foods'},
