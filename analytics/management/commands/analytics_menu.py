@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
 from analytics.models import Visit
-from datetime import datetime, timedelta
+from datetime import datetime
+
+# moscow ip: 50.52.111.94
 
 class Command(BaseCommand):
     help = "Interactive menu to explore analytics data"
@@ -26,7 +28,7 @@ class Command(BaseCommand):
             else:
                 print("Invalid choice. Please enter 1–4.")
 
-    def show_recent(self, limit=10):
+    def show_recent(self, limit=100):
         visits = Visit.objects.order_by('-timestamp')[:limit]
         if not visits:
             print("No recent visits found.")
